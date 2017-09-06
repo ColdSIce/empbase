@@ -1,8 +1,5 @@
 package com.speechpro.empbase.empbase.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.speechpro.empbase.empbase.model.transport.EmployeeTransport;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,7 +11,7 @@ import java.util.Set;
 public class Employee {
 
     public Employee(Position position,
-                    Division division,
+                    Long divisionId,
                     Set<Skill> skills,
                     Image image,
                     String fio,
@@ -29,7 +26,7 @@ public class Employee {
                     Organization organization,
                     boolean active) {
         this.position = position;
-        this.division = division;
+        this.divisionId = divisionId;
         this.skills = skills;
         this.image = image;
         this.fio = fio;
@@ -54,10 +51,8 @@ public class Employee {
     @Fetch(FetchMode.JOIN)
     private Position position;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "divisionId")
-    @Fetch(FetchMode.JOIN)
-    private Division division;
+    @Column
+    private Long divisionId;
 
     @ManyToMany(mappedBy = "employees")
     private Set<Skill> skills;
@@ -127,13 +122,12 @@ public class Employee {
         this.position = position;
     }
 
-    @JsonIgnore
-    public Division getDivision() {
-        return division;
+    public Long getDivisionId() {
+        return divisionId;
     }
 
-    public void setDivision(Division division) {
-        this.division = division;
+    public void setDivisionId(Long divisionId) {
+        this.divisionId = divisionId;
     }
 
     public Set<Skill> getSkills() {
@@ -238,9 +232,5 @@ public class Employee {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public EmployeeTransport toTransport(){
-        return new EmployeeTransport(this);
     }
 }

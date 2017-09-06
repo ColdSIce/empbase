@@ -14,15 +14,15 @@ public class Division {
                     String nameEng,
                     String link,
                     String email,
-                    Division rootDivision,
-                    Division old,
+                    Long rootDivisionId,
+                    Long oldId,
                     Employee head) {
         this.name = name;
         this.nameEng = nameEng;
         this.link = link;
         this.email = email;
-        this.rootDivision = rootDivision;
-        this.old = old;
+        this.rootDivisionId = rootDivisionId;
+        this.oldId = oldId;
         this.head = head;
     }
 
@@ -42,15 +42,11 @@ public class Division {
     @Column(length = 128)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rootDivisionId")
-    @Fetch(FetchMode.JOIN)
-    private Division rootDivision;
+    @Column
+    private Long rootDivisionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "oldId")
-    @Fetch(FetchMode.JOIN)
-    private Division old;
+    @Column
+    private Long oldId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "headId")
@@ -100,22 +96,20 @@ public class Division {
         this.email = email;
     }
 
-    @JsonIgnore
-    public Division getRootDivision() {
-        return rootDivision;
+    public Long getRootDivisionId() {
+        return rootDivisionId;
     }
 
-    public void setRootDivision(Division rootDivision) {
-        this.rootDivision = rootDivision;
+    public void setRootDivisionId(Long rootDivisionId) {
+        this.rootDivisionId = rootDivisionId;
     }
 
-    @JsonIgnore
-    public Division getOld() {
-        return old;
+    public Long getOldId() {
+        return oldId;
     }
 
-    public void setOld(Division old) {
-        this.old = old;
+    public void setOldId(Long oldId) {
+        this.oldId = oldId;
     }
 
     public Employee getHead() {

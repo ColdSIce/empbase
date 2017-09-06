@@ -2,7 +2,6 @@ package com.speechpro.empbase.empbase.controller.rest;
 
 import com.speechpro.empbase.empbase.model.entities.Division;
 import com.speechpro.empbase.empbase.model.entities.Employee;
-import com.speechpro.empbase.empbase.model.transport.EmployeeTransport;
 import com.speechpro.empbase.empbase.service.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -31,7 +31,7 @@ public class DivisionServiceImpl implements DivisionService {
 
     @Override
     public List<Division> getAllByParent(Division division) {
-        return divisionRepository.findByRootDivision(division);
+        return divisionRepository.findByRootDivisionId(division.getId());
     }
 
     @Override

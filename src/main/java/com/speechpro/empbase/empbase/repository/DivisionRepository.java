@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DivisionRepository extends JpaRepository<Division, Long> {
-    List<Division> findByRootDivision(Division division);
+    List<Division> findByRootDivisionId(Long id);
 }

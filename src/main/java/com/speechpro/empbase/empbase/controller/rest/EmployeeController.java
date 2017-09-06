@@ -1,7 +1,6 @@
 package com.speechpro.empbase.empbase.controller.rest;
 
 import com.speechpro.empbase.empbase.model.entities.Employee;
-import com.speechpro.empbase.empbase.model.transport.EmployeeTransport;
 import com.speechpro.empbase.empbase.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,22 +22,22 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
-    EmployeeTransport get(@PathVariable Long id){
-        return employeeService.getById(id).toTransport();
+    Employee get(@PathVariable Long id){
+        return employeeService.getById(id);
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.POST)
-    EmployeeTransport create(@RequestBody EmployeeTransport employeeTransport){
-        return employeeService.create(employeeTransport);
+    Employee create(@RequestBody Employee employee){
+        return employeeService.create(employee);
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.PUT)
-    EmployeeTransport update(@RequestBody EmployeeTransport employeeTransport){
-        return employeeService.update(employeeTransport);
+    Employee update(@RequestBody Employee employee){
+        return employeeService.update(employee);
     }
 
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.DELETE)
-    ResponseEntity<EmployeeTransport> deletePost(@PathVariable Long id){
+    ResponseEntity<Employee> deletePost(@PathVariable Long id){
         Employee employee = employeeService.getById(id);
         if(employee != null){
             employeeService.delete(employee);
