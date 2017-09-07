@@ -52,26 +52,41 @@ public class DivisionServiceImpl implements DivisionService {
 
     @Override
     public Employee getFirstHead(Division division) {
-        return null;
+        return getFirstHeadRecur(division);
+    }
+
+    private Employee getFirstHeadRecur(Division division){
+        if(division.getHead() != null) return division.getHead();
+        if(division.getRootDivisionId() == null) return null;
+        Division parent = getById(division.getRootDivisionId());
+        if(parent == null) return null;
+        return getFirstHeadRecur(parent);
     }
 
     @Override
     public List<Employee> getAllHeads(Division division) {
-        return null;
+        return getHeadsRecur(division, new ArrayList<>());
+    }
+
+    private List<Employee> getHeadsRecur(Division division, List<Employee> employees){
+        if(division.getHead() != null) employees.add(division.getHead());
+        Division parent = getById(division.getRootDivisionId());
+        if(parent == null) return employees;
+        return getHeadsRecur(parent, employees);
     }
 
     @Override
     public Division create(Division division) {
-        return null;
+        return divisionRepository.save(division);
     }
 
     @Override
     public Division update(Division division) {
-        return null;
+        return divisionRepository.save(division);
     }
 
     @Override
     public void delete(Division division) {
-
+        divisionRepository.delete(division);
     }
 }

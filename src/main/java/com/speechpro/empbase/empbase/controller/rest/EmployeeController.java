@@ -37,7 +37,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.DELETE)
-    ResponseEntity<Employee> deletePost(@PathVariable Long id){
+    ResponseEntity<Employee> delete(@PathVariable Long id){
         Employee employee = employeeService.getById(id);
         if(employee != null){
             employeeService.delete(employee);
