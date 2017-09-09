@@ -1,5 +1,8 @@
 .emp_list_container{
     margin-left: 400px;
+    overflow-y: scroll;
+    position: fixed;
+    height: 100%;
 }
 
 .emp_search_wrap{
@@ -30,19 +33,10 @@
     z-index: 10;
 }
 
-
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: @screen-sm-min) { 
-
-}
-
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: @screen-md-min) { 
-    
-}
-
-/* Large devices (large desktops, 1200px and up) */
-@media (min-width: @screen-lg-min) { 
-    
+.add_btn{
+    float: right;
+    right: 45px;
+    bottom: 30px;
+    position: fixed;
+    z-index: 20;
 }

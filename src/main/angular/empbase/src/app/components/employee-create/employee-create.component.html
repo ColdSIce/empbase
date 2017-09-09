@@ -1,0 +1,21 @@
+<md-progress-bar class="progress" *ngIf="inProgress" mode="{{mode}}" color="accent" class="emp_list_progress_bar"></md-progress-bar>
+<toaster-container></toaster-container>
+<md-card class="example-card">
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="example-form">
+    <md-card-header>
+      <md-card-title  class="form_title">Новая статья</md-card-title>
+    </md-card-header>
+    <md-card-content>
+        <md-input-container class="example-full-width">
+          <input mdInput placeholder="Заголовок" formControlName="title">
+        </md-input-container>
+        <md-input-container class="example-full-width">
+          <textarea class="text-area" mdInput placeholder="Текст статьи" formControlName="text"></textarea>
+        </md-input-container>
+    </md-card-content>
+    <md-card-actions>
+      <button [disabled]="employeeForm.pristine" type="submit" md-button>Сохранить</button>
+      <button type="button" (click)="cancel()" md-button>Отмена</button>
+    </md-card-actions>
+  </form> 
+</md-card>

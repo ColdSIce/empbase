@@ -19,10 +19,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { HttpModule }    from '@angular/http';
+
 import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
+import { EmployeeCreateComponent } from './components/employee-create/employee-create.component';
 
 import { ApplicationService } from './services/application.service';
 import { ContactService } from './services/contact.service';
@@ -36,12 +38,14 @@ import { OrganizationService } from './services/organization.service';
 import { PositionService } from './services/position.service';
 import { SkillService } from './services/skill.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeListComponent,
     EmployeeComponent,
-    EmployeeEditComponent
+    EmployeeEditComponent,
+    EmployeeCreateComponent
   ],
   imports: [
     BrowserModule,
