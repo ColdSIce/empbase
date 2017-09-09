@@ -40,6 +40,7 @@ import { SkillTypeComponent } from '../../components/skill/skill-type/skill-type
 import { SkillTypeCreateComponent } from '../../components/skill/skill-type-create/skill-type-create.component';
 import { SkillTypeEditComponent } from '../../components/skill/skill-type-edit/skill-type-edit.component';
 import { SkillsComponent } from '../../components/skill/skills/skills.component';
+import { AdminComponent } from '../../components/admin/admin.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/employee', pathMatch:'full' },
@@ -59,6 +60,29 @@ const routes: Routes = [
   { path: 'imageType/view/:key', component: ImageTypeComponent },
   { path: 'imageType/edit/:key', component: ImageTypeEditComponent },
   { path: 'imageType/create', component: ImageTypeCreateComponent },
+  { path: 'officeAndLocation',  component: OfficeAndLocationListComponent },
+  { path: 'office/view/:key', component: OfficeComponent },
+  { path: 'location/view/:key', component: LocationComponent },
+  { path: 'office/edit/:key', component: OfficeEditComponent },
+  { path: 'location/edit/:key', component: LocationEditComponent },
+  { path: 'office/create', component: OfficeCreateComponent },
+  { path: 'location/create', component: LocationCreateComponent },
+  { path: 'organization',  component: OrganizationListComponent },
+  { path: 'organization/view/:key', component: OrganizationComponent },
+  { path: 'organization/edit/:key', component: OrganizationEditComponent },
+  { path: 'organization/create', component: OrganizationCreateComponent },
+  { path: 'position',  component: PositionListComponent },
+  { path: 'position/view/:key', component: PositionComponent },
+  { path: 'position/edit/:key', component: PositionEditComponent },
+  { path: 'position/create', component: PositionCreateComponent },
+  { path: 'skill',  component: SkillsComponent },
+  { path: 'skill/view/:key', component: SkillComponent },
+  { path: 'skillType/view/:key', component: SkillTypeComponent },
+  { path: 'skill/edit/:key', component: SkillEditComponent },
+  { path: 'skillType/edit/:key', component: SkillTypeEditComponent },
+  { path: 'skill/create', component: SkillCreateComponent },
+  { path: 'skillType/create', component: SkillTypeCreateComponent },
+  { path: 'admin', component: AdminComponent }
 ];
 
 @NgModule({

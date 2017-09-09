@@ -71,6 +71,7 @@ import { SkillTypeComponent } from './components/skill/skill-type/skill-type.com
 import { SkillTypeCreateComponent } from './components/skill/skill-type-create/skill-type-create.component';
 import { SkillTypeEditComponent } from './components/skill/skill-type-edit/skill-type-edit.component';
 import { SkillsComponent } from './components/skill/skills/skills.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 @NgModule({
@@ -113,7 +114,8 @@ import { SkillsComponent } from './components/skill/skills/skills.component';
     SkillTypeComponent,
     SkillTypeCreateComponent,
     SkillTypeEditComponent,
-    SkillsComponent
+    SkillsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
