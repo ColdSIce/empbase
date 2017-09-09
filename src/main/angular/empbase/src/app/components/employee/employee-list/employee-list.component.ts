@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeComponent } from '../../components/employee/employee.component';
-import { EmployeeEditComponent } from '../../components/employee-edit/employee-edit.component';
+import { EmployeeComponent } from '../employee/employee.component';
+import { EmployeeEditComponent } from '../employee-edit/employee-edit.component';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
-import { moveIn, fallIn, moveInLeft } from '../../router.animation';
+import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
 
 @Component({
   selector: 'app-employee-list',

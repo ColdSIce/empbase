@@ -1,10 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { EmployeeService } from '../../services/employee.service';
-import { Employee } from '../../models/employee';
+import { EmployeeService } from '../../../services/employee.service';
+import { Employee } from '../../../models/employee';
 import { Router } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
-import { moveIn, fallIn, moveInLeft } from '../../router.animation';
+import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
 
 @Component({
   selector: 'app-employee-create',
