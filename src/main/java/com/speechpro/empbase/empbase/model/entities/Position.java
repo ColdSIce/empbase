@@ -11,10 +11,10 @@ public class Position {
     public Position() {
     }
 
-    public Position(String position, String positionEng, Position old) {
+    public Position(String position, String positionEng, Long oldId) {
         this.position = position;
         this.positionEng = positionEng;
-        this.old = old;
+        this.oldId = oldId;
     }
 
     @Id
@@ -27,10 +27,8 @@ public class Position {
     @Column(length = 128)
     private String positionEng;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "oldId")
-    @Fetch(FetchMode.JOIN)
-    private Position old;
+    @Column
+    private Long oldId;
 
     public Long getId() {
         return id;
@@ -56,11 +54,11 @@ public class Position {
         this.positionEng = positionEng;
     }
 
-    public Position getOld() {
-        return old;
+    public Long getOldId() {
+        return oldId;
     }
 
-    public void setOld(Position old) {
-        this.old = old;
+    public void setOldId(Long oldId) {
+        this.oldId = oldId;
     }
 }

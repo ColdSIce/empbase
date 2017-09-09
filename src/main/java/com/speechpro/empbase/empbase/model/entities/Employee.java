@@ -16,12 +16,13 @@ public class Employee {
                     Image image,
                     String fio,
                     String fioEng,
+                    String gender,
                     String uname,
                     String onesId,
                     Date birthDate,
                     Date created,
                     Date updated,
-                    Employee updatedBy,
+                    Long updatedBy,
                     Location location,
                     Organization organization,
                     boolean active) {
@@ -31,6 +32,7 @@ public class Employee {
         this.image = image;
         this.fio = fio;
         this.fioEng = fioEng;
+        this.gender = gender;
         this.uname = uname;
         this.onesId = onesId;
         this.birthDate = birthDate;
@@ -65,6 +67,9 @@ public class Employee {
     @Column(length = 128)
     private String fio;
 
+    @Column(length = 128)
+    private String gender;
+
     @Column(length = 128, name = "fioEng")
     private String fioEng;
 
@@ -85,10 +90,8 @@ public class Employee {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "updatedBy")
-    @Fetch(FetchMode.JOIN)
-    private Employee updatedBy;
+    @Column
+    private Long updatedBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "locationId")
@@ -202,11 +205,11 @@ public class Employee {
         this.updated = updated;
     }
 
-    public Employee getUpdatedBy() {
+    public Long getUpdatedBy() {
         return updatedBy;
     }
 
-    public void setUpdatedBy(Employee updatedBy) {
+    public void setUpdatedBy(Long updatedBy) {
         this.updatedBy = updatedBy;
     }
 

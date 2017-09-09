@@ -1,0 +1,19 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body{
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    min-height: 100%;
+}
+
+body{
+    overflow:hidden;
+}
+
+.toast-top-right {
+    top: 70px !important;
+    right: 15px !important;
+}
+
+

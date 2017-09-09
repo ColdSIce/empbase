@@ -1,0 +1,20 @@
+<md-toolbar class="main_bar" color="primary">
+    <img src="../assets/logo_2.png" class="top_logo"/>
+    <button md-button >Сотрудники</button>
+    <button md-button >ОШС</button>
+    <button md-button >Организации</button>
+    <button md-button >Офисы и комнаты</button>
+    <button md-button >Скилы</button>
+    <button md-button >Контакты</button>
+    <button md-button >Управление</button>
+    <span class="example-spacer"></span>
+    <button md-button [mdMenuTriggerFor]="menu">Алехин Владимир</button>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item>Профиль</button>
+      <button md-menu-item>Выход</button>
+    </md-menu>
+    <md-icon>face</md-icon>
+</md-toolbar>
+<div class="main_container">
+  <router-outlet></router-outlet>
+</div>
