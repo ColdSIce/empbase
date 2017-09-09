@@ -9,12 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class OrganizationController {
 
     @Autowired
     private OrganizationService organizationService;
+
+    @RequestMapping(value = "/organization/all", method = RequestMethod.GET)
+    List<Organization> getAll(){
+        return organizationService.getAll();
+    }
 
     @RequestMapping(value = "/organization/{id}", method = RequestMethod.GET)
     Organization getOrganization(@PathVariable Long id){

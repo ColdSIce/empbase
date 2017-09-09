@@ -1,3 +1,18 @@
-<p>
-  organization works!
-</p>
+<md-progress-bar class="progress" *ngIf="inProgress" mode="{{mode}}" color="accent"></md-progress-bar>
+<toaster-container></toaster-container>
+<md-card class="example-card">
+  <md-card-content>
+    <md-list>
+      <md-list-item class="org_row">
+        <md-icon class="note-icon" md-list-icon>business</md-icon>
+        <h4 md-line>{{organization?.name}}</h4>
+        <p md-line> {{organization?.nameEng}} </p>
+      </md-list-item>
+    </md-list>
+  </md-card-content>
+  <md-card-actions *ngIf="!editModeOn">
+    <button md-button (click)="edit(organization?.id)">Редактировать</button>
+    <button md-button type="button" (click)="delete(organization?.id)">Удалить</button>
+    <button md-button type="button" (click)="toOrganizations()">К списку</button>
+  </md-card-actions>
+</md-card>

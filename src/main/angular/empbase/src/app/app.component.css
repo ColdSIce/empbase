@@ -10,3 +10,7 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+button.mat-button.active {
+    background: #4DB6AC;
+}

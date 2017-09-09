@@ -1,0 +1,21 @@
+.org_row{
+    transition: all .3s ease;
+}
+
+.org_row:hover{
+    background: #E0F2F1;
+    cursor: pointer;
+}
+
+.add_btn{
+    float: right;
+    right: 45px;
+    bottom: 30px;
+    position: fixed;
+    z-index: 20;
+}
+
+.mat-list, .mat-nav-list, .mat-selection-list {
+    overflow-y: scroll;
+    height: 100%;
+}

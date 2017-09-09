@@ -7,6 +7,10 @@ export class OrganizationService{
 
     constructor(private http: Http){}
 
+    getAll(){
+        return this.http.get('/api/organization/all');
+    }
+
     getOrganization(id:number){
         return this.http.get('/api/organization/' + id);
     }
