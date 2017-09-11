@@ -7,11 +7,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class OfficeController {
     @Autowired
     private OfficeService officeService;
+
+    @RequestMapping(value = "/office", method = RequestMethod.GET)
+    List<Office> getOffice(){
+        return officeService.getAll();
+    }
 
     @RequestMapping(value = "/office/{id}", method = RequestMethod.GET)
     Office getOffice(@PathVariable Long id){

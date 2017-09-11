@@ -67,6 +67,7 @@ const routes: Routes = [
   { path: 'location/edit/:key', component: LocationEditComponent },
   { path: 'office/create', component: OfficeCreateComponent },
   { path: 'location/create', component: LocationCreateComponent },
+  { path: 'location/createInOffice/:officeId', component: LocationCreateComponent },
   { path: 'organization',  component: OrganizationListComponent },
   { path: 'organization/view/:key', component: OrganizationComponent },
   { path: 'organization/edit/:key', component: OrganizationEditComponent },

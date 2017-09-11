@@ -7,6 +7,10 @@ export class OfficeService{
 
     constructor(private http: Http){}
 
+    getAll(){
+        return this.http.get('/api/office');
+    }
+
     getOffice(id:number){
         return this.http.get('/api/office/' + id);
     }

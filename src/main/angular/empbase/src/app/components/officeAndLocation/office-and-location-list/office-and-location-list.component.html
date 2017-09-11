@@ -1,3 +1,43 @@
-<p>
-  office-and-location-list works!
-</p>
+<md-progress-bar class="progress" *ngIf="inProgress" mode="{{mode}}" color="accent" class="emp_list_progress_bar"></md-progress-bar>
+<toaster-container></toaster-container>
+<div class="row component_head" style="margin-right:0px;">
+  <div class="col-md-6 office_title">
+    <h4>Офисы</h4>
+  </div>
+  <div class="col-md-6 location_title">
+    <h4>Комнаты</h4>
+  </div>
+</div>
+<div class="row component_body" style="margin-right:0px;">
+  <div class="col-md-6 office_col">
+    <div class="add_office_btn">
+      <button md-fab color="accent" (click)="createOffice()">
+        <md-icon aria-label="Создать новый офис">add</md-icon>
+      </button>
+    </div>
+    <md-list>
+      <md-list-item [ngClass]="{'selected':office.selected}" class="office_row" (click)="selectOffice(office)" *ngFor="let office of offices">
+        <md-icon class="note-icon" md-list-icon>home</md-icon>
+        <h4 md-line>{{office.name}}<span> | {{office.nameEng}} </span><span> | {{office.shortName}} </span></h4>
+        <p md-line>Руководитель: {{office.head.fio}} </p>
+        <md-icon class="note-icon office_info" title="Управление" (click)="goToOffice(office?.id)" md-list-icon>
+          settings
+        </md-icon>
+      </md-list-item>
+    </md-list>
+  </div>
+  <div class="col-md-6 location_col">
+    <div class="add_loca_btn">
+      <button md-fab color="accent" (click)="createLocation(selectedOffice?.id)">
+        <md-icon aria-label="Создать новый офис">add</md-icon>
+      </button>
+    </div>
+    <md-list>
+      <md-list-item class="loca_row" (click)="goToLoca(loca?.id)" *ngFor="let loca of locations | roomByOffice:selectedOffice">
+        <md-icon class="note-icon" md-list-icon>fullscreen</md-icon>
+        <h4 md-line>{{loca.name}}</h4>
+        <p md-line>{{loca.shortName}}</p>
+      </md-list-item>
+    </md-list>
+  </div>
+</div>

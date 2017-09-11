@@ -11,7 +11,9 @@ import { MdButtonModule,
   MdCardModule,
   MdSelectionList,
   MdListOption,
+  MdTooltipModule,
   MdMenuModule,
+  MdSelectModule,
   MdIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutingModule } from './modules/routing/routing.module';
@@ -73,6 +75,7 @@ import { SkillTypeEditComponent } from './components/skill/skill-type-edit/skill
 import { SkillsComponent } from './components/skill/skills/skills.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
+import { RoomByOfficePipe } from './pipes/room-by-office.pipe';
 
 
 @NgModule({
@@ -117,7 +120,8 @@ import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
     SkillTypeEditComponent,
     SkillsComponent,
     AdminComponent,
-    PositionByPropPipe
+    PositionByPropPipe,
+    RoomByOfficePipe
   ],
   imports: [
     BrowserModule,
@@ -130,10 +134,12 @@ import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
     MdGridListModule,
     MdToolbarModule,
     MdIconModule,
+    MdSelectModule,
     MdListModule,
     MdAutocompleteModule,
     ReactiveFormsModule,
     MdCardModule,
+    MdTooltipModule,
     MdInputModule,
     MdMenuModule,
     MdProgressBarModule,
@@ -160,9 +166,11 @@ import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
     MdGridListModule,
     MdCardModule,
     MdToolbarModule,
+    MdTooltipModule,
     MdAutocompleteModule,
     MdInputModule,
     MdMenuModule,
+    MdSelectModule,
     MdProgressBarModule,
     MdListModule,
     MdIconModule

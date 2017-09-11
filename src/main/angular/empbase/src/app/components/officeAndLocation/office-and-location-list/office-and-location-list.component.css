@@ -1,0 +1,60 @@
+.component_body{
+    height: 100%;
+    padding: 0;
+}
+
+.office_col{
+    overflow-y: scroll; 
+    height: 100%;
+    padding-right: 0px;
+}
+
+.location_col{
+    overflow-y: scroll; 
+    height: 100%;
+    padding-right: 0px;
+}
+
+.office_row,
+.loca_row{
+    transition: all .3s ease;
+}
+
+.office_row:hover,
+.loca_row:hover{
+    background: #E0F2F1;
+    cursor: pointer;
+}
+
+.office_row.selected{
+    background: #80cbc4;
+}
+
+.office_info{
+    display: none;
+}
+
+.office_row.selected .office_info{
+    display: block;
+}
+
+.office_title h4,
+.location_title h4{
+    margin-left: 20px;
+}
+
+.add_office_btn{
+    float: right;
+    left: 42%;
+    bottom: 30px;
+    position: fixed;
+    z-index: 20;
+}
+
+.add_loca_btn{
+    float: right;
+    right: 45px;
+    bottom: 30px;
+    position: fixed;
+    z-index: 20;
+}

@@ -29,11 +29,13 @@ export class OrganizationListComponent implements OnInit {
     this.os.getAll().subscribe((data) => {
       this.mode = "Query";
       this.organizations = data.json() as Organization[];
+      this.mode = "Indeterminate";
+      this.inProgress = false;
     },(error) => {
       this.ts.pop('error', 'Ошибка', error);
+      this.mode = "Indeterminate";
+      this.inProgress = false;
     });
-    this.mode = "Indeterminate";
-    this.inProgress = false;
   }
 
   create(){

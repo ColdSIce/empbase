@@ -7,6 +7,10 @@ export class LocationService{
 
     constructor(private http: Http){}
 
+    getAll(){
+        return this.http.get('/api/location');
+    }
+
     getLocation(id:number){
         return this.http.get('/api/location/' + id);
     }

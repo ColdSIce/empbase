@@ -21,6 +21,11 @@ public class LocationController {
     @Autowired
     private OfficeService officeService;
 
+    @RequestMapping(value = "/location", method = RequestMethod.GET)
+    List<Location> getLocation(){
+        return locationService.getAll();
+    }
+
     @RequestMapping(value = "/location/{id}", method = RequestMethod.GET)
     Location getLocation(@PathVariable Long id){
         return locationService.getById(id);
