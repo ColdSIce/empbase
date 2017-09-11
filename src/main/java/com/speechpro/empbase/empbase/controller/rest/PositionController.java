@@ -7,12 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class PositionController {
 
     @Autowired
     private PositionService positionService;
+
+    @RequestMapping(value = "/position/all", method = RequestMethod.GET)
+    List<Position> getAll(){
+        return positionService.getAll();
+    }
 
     @RequestMapping(value = "/position/{id}", method = RequestMethod.GET)
     Position getPosition(@PathVariable Long id){

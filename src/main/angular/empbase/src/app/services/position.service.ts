@@ -7,7 +7,11 @@ export class PositionService{
 
     constructor(private http: Http){}
 
-    getOrganization(id:number){
+    getAll(){
+        return this.http.get('/api/position/all');
+    }
+
+    getPosition(id:number){
         return this.http.get('/api/position/' + id);
     }
 

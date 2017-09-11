@@ -1,7 +1,7 @@
 export class Position{
+    public oldId?:number;
     constructor(
         public position:string,
-        public positionEng:string,
-        public oldId:number
+        public positionEng:string
     ){}
 }
