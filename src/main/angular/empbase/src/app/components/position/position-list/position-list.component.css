@@ -19,3 +19,12 @@
     overflow-y: scroll;
     height: 100%;
 }
+
+.search{
+    margin: 0 auto;
+    min-width: 70%;
+}
+
+.search_row{
+    margin-top: 15px;
+}

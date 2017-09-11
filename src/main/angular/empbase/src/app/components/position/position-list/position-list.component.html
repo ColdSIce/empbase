@@ -6,7 +6,19 @@
   </button>
 </div>
 <md-list>
-  <md-list-item class="pos_row" (click)="goToPosition(position?.id)" *ngFor="let position of positions">
+  <md-list-item class="search_row">
+    <md-input-container class="search">
+      <input mdInput placeholder="Поиск" [mdAutocomplete]="auto" [formControl]="stateCtrl">
+    </md-input-container>
+
+    <md-autocomplete #auto="mdAutocomplete">
+      <md-option *ngFor="let fp of filteredPositions | async" [value]="fp.position">
+        {{ fp.position }}
+      </md-option>
+    </md-autocomplete>
+
+  </md-list-item>
+  <md-list-item class="pos_row" (click)="goToPosition(position?.id)" *ngFor="let position of positions | positionByProp:stateCtrl.value">
     <md-icon class="note-icon" md-list-icon>device_hub</md-icon>
     <h4 md-line>{{position.position}}</h4>
     <p md-line> {{position.positionEng}} </p>
