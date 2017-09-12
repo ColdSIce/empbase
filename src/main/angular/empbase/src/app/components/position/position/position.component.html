@@ -10,7 +10,7 @@
       </md-list-item>
     </md-list>
   </md-card-content>
-  <md-card-actions *ngIf="!editModeOn">
+  <md-card-actions>
     <button md-button (click)="edit(position?.id)">Редактировать</button>
     <button md-button type="button" (click)="delete(position?.id)">Удалить</button>
     <button md-button type="button" (click)="positions()">К списку</button>

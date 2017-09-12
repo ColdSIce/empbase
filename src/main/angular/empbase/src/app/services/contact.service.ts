@@ -28,6 +28,10 @@ export class ContactService{
         return this.http.get('/api/employee/'+employeeId+'/contact');
     }
 
+    getAllContactTypes(){
+        return this.http.get('/api/contact_type/');
+    }
+
     getContactType(id:number){
         return this.http.get('/api/contact_type/' + id);
     }

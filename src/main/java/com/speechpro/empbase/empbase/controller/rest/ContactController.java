@@ -63,6 +63,11 @@ public class ContactController {
         }
     }
 
+    @RequestMapping(value = "/contact_type", method = RequestMethod.GET)
+    List<ContactType> getAllContactTypes(){
+        return contactTypeService.getAll();
+    }
+
     @RequestMapping(value = "/contact_type/{id}", method = RequestMethod.GET)
     ContactType getContactType(@PathVariable Long id){
         return contactTypeService.getById(id);
