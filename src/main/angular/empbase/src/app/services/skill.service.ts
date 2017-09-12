@@ -8,6 +8,10 @@ export class SkillService{
 
     constructor(private http: Http){}
 
+    getAllSkills(){
+        return this.http.get('/api/skill');
+    }
+
     getSkill(id:number){
         return this.http.get('/api/skill/' + id);
     }
@@ -22,6 +26,10 @@ export class SkillService{
 
     delete(id:number){
         if(id) return this.http.delete('/api/skill/' + id);
+    }
+
+    getAllSkillGroups(){
+        return this.http.get('/api/skill_group');
     }
 
     getSkillGroup(id:number){

@@ -7,12 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class SkillController {
 
     @Autowired
     private SkillService skillService;
+
+    @RequestMapping(value = "/skill", method = RequestMethod.GET)
+    List<Skill> getAllSkills(){
+        return skillService.getAll();
+    }
 
     @RequestMapping(value = "/skill/{id}", method = RequestMethod.GET)
     Skill getSkill(@PathVariable Long id){

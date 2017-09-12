@@ -76,6 +76,7 @@ import { SkillsComponent } from './components/skill/skills/skills.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
 import { RoomByOfficePipe } from './pipes/room-by-office.pipe';
+import { SkillByGroupPipe } from './pipes/skill-by-group.pipe';
 
 
 @NgModule({
@@ -121,7 +122,8 @@ import { RoomByOfficePipe } from './pipes/room-by-office.pipe';
     SkillsComponent,
     AdminComponent,
     PositionByPropPipe,
-    RoomByOfficePipe
+    RoomByOfficePipe,
+    SkillByGroupPipe
   ],
   imports: [
     BrowserModule,

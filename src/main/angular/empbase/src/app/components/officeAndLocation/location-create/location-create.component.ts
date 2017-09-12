@@ -41,26 +41,28 @@ export class LocationCreateComponent implements OnInit {
 
       this.route.params.subscribe((params: Params) => {
         this.mode = "Query";
-          this.os.getOffice(params['officeId']).subscribe(resp => {
-            this.office = resp.json() as Office;
-            let selected = null;
-            this.offices.forEach(o => {
-              if(o.name == this.office.name) selected = o;
-            });
-            this.locationForm.setValue({
-              name: '',
-              shortName: '',
-              office: selected
-            });
-            this.mode = "Indeterminate";
-            this.inProgress = false;
-          },
-            (error) => {
-              this.ts.pop('error', 'Ошибка', error);
-              this.inProgress = false;
+          if(params['officeId']){
+            this.os.getOffice(params['officeId']).subscribe(resp => {
+              this.office = resp.json() as Office;
+              let selected = null;
+              this.offices.forEach(o => {
+                if(o.name == this.office.name) selected = o;
+              });
+              this.locationForm.setValue({
+                name: '',
+                shortName: '',
+                office: selected
+              });
               this.mode = "Indeterminate";
-            }
-          ) 
+              this.inProgress = false;
+            },
+              (error) => {
+                this.ts.pop('error', 'Ошибка', error);
+                this.inProgress = false;
+                this.mode = "Indeterminate";
+              }
+            ) 
+          }
         });
 
       this.mode = "Indeterminate";

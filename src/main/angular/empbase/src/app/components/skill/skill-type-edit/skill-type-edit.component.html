@@ -1,3 +1,18 @@
-<p>
-  skill-type-edit works!
-</p>
+<md-progress-bar class="progress" *ngIf="inProgress" mode="{{mode}}" color="accent" class="emp_list_progress_bar"></md-progress-bar>
+<toaster-container></toaster-container>
+<md-card class="example-card">
+  <form [formGroup]="sgForm" (ngSubmit)="onSubmit()" class="example-form">
+    <md-card-header>
+      <md-card-title  class="form_title">Редактирование</md-card-title>
+    </md-card-header>
+    <md-card-content>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Наименование" formControlName="name">
+        </md-input-container>
+    </md-card-content>
+    <md-card-actions>
+      <button [disabled]="sgForm.pristine" type="submit" md-button>Сохранить</button>
+      <button type="button" (click)="cancel()" md-button>Отмена</button>
+    </md-card-actions>
+  </form> 
+</md-card>

@@ -82,6 +82,7 @@ const routes: Routes = [
   { path: 'skill/edit/:key', component: SkillEditComponent },
   { path: 'skillType/edit/:key', component: SkillTypeEditComponent },
   { path: 'skill/create', component: SkillCreateComponent },
+  { path: 'skill/createInGroup/:skillId', component: SkillCreateComponent },
   { path: 'skillType/create', component: SkillTypeCreateComponent },
   { path: 'admin', component: AdminComponent }
 ];

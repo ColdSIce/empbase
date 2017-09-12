@@ -1,3 +1,42 @@
-<p>
-  skills works!
-</p>
+<md-progress-bar class="progress" *ngIf="inProgress" mode="{{mode}}" color="accent" class="emp_list_progress_bar"></md-progress-bar>
+<toaster-container></toaster-container>
+<div class="row component_head" style="margin-right:0px;">
+  <div class="col-md-6 sg_title">
+    <h4>Группы скилов</h4>
+  </div>
+  <div class="col-md-6 skill_title">
+    <h4>Скилы</h4>
+  </div>
+</div>
+<div class="row component_body" style="margin-right:0px;">
+  <div class="col-md-6 sg_col">
+    <div class="add_sg_btn">
+      <button md-fab color="accent" (click)="createSG()">
+        <md-icon aria-label="Создать новую группу">add</md-icon>
+      </button>
+    </div>
+    <md-list>
+      <md-list-item [ngClass]="{'selected':sg.selected}" class="sg_row" (click)="selectSG(sg)" *ngFor="let sg of sgs">
+        <md-icon class="note-icon" md-list-icon>fiber_smart_record</md-icon>
+        <h4 md-line>{{sg.name}}</h4>
+        <md-icon class="note-icon sg_info" title="Управление" (click)="goToSG(sg?.id)" md-list-icon>
+          settings
+        </md-icon>
+      </md-list-item>
+    </md-list>
+  </div>
+  <div class="col-md-6 skill_col">
+    <div class="add_skill_btn">
+      <button md-fab color="accent" (click)="createSkill(selectedSG?.id)">
+        <md-icon aria-label="Создать новый скил">add</md-icon>
+      </button>
+    </div>
+    <md-list>
+      <md-list-item class="skill_row" (click)="goToSkill(skill?.id)" *ngFor="let skill of skills | skillByGroup:selectedSG">
+        <md-icon class="note-icon" md-list-icon>fiber_manual_record</md-icon>
+        <h4 md-line>{{skill.name}}</h4>
+        <p md-line>Группа: {{skill.skillGroup.name}}</p>
+      </md-list-item>
+    </md-list>
+  </div>
+</div>
