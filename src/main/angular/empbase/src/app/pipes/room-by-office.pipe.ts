@@ -8,7 +8,7 @@ import { Office } from '../models/office';
 export class RoomByOfficePipe implements PipeTransform {
 
   transform(locations: Array<Location>, prop: Office): Array<any> {
-      return prop ? locations.filter(l => l.office === prop)
+      return prop ? locations.filter(l => l.office.name === prop.name)
                : locations;
   }
 
