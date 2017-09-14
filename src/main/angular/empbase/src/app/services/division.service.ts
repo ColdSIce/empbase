@@ -7,7 +7,11 @@ export class DivisionService{
 
     constructor(private http: Http){}
 
-    getDeputy(id:number){
+    getTreeByRoot(id:number){
+        return this.http.get('/api/division/' + id + '/tree');
+    }
+
+    getDivision(id:number){
         return this.http.get('/api/division/' + id);
     }
 

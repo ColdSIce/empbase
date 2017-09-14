@@ -30,6 +30,17 @@ public class DivisionServiceImpl implements DivisionService {
     }
 
     @Override
+    public Division getTreeByRoot(Division root) {
+        fillTree(root);
+        return root;
+    }
+
+    private void fillTree(Division division){
+        division.setDivisions(getAllByParent(division));
+        division.getDivisions().forEach(this::fillTree);
+    }
+
+    @Override
     public List<Division> getAllByParent(Division division) {
         return divisionRepository.findByRootDivisionId(division.getId());
     }

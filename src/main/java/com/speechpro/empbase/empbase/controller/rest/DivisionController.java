@@ -16,6 +16,13 @@ public class DivisionController {
     @Autowired
     private DivisionService divisionService;
 
+    @RequestMapping(value = "/division/{id}/tree", method = RequestMethod.GET)
+    ResponseEntity<Division> getTreeByRoot(@PathVariable Long id){
+        Division division = divisionService.getById(id);
+        if(division == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<Division>(divisionService.getTreeByRoot(division), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/division/{id}/employee/all", method = RequestMethod.GET)
     ResponseEntity<List<Employee>> getAll(@PathVariable Long id){
         Division division = divisionService.getById(id);

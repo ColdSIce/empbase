@@ -11,6 +11,7 @@ import { MdButtonModule,
   MdCardModule,
   MdSelectionList,
   MdListOption,
+  MdExpansionModule,
   MdTooltipModule,
   MdMenuModule,
   MdSelectModule,
@@ -77,6 +78,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
 import { RoomByOfficePipe } from './pipes/room-by-office.pipe';
 import { SkillByGroupPipe } from './pipes/skill-by-group.pipe';
+import { DivisionInListComponent } from './components/division-in-list/division-in-list.component';
 
 
 @NgModule({
@@ -123,7 +125,8 @@ import { SkillByGroupPipe } from './pipes/skill-by-group.pipe';
     AdminComponent,
     PositionByPropPipe,
     RoomByOfficePipe,
-    SkillByGroupPipe
+    SkillByGroupPipe,
+    DivisionInListComponent
   ],
   imports: [
     BrowserModule,
@@ -135,6 +138,7 @@ import { SkillByGroupPipe } from './pipes/skill-by-group.pipe';
     MdCheckboxModule,
     MdGridListModule,
     MdToolbarModule,
+    MdExpansionModule,
     MdIconModule,
     MdSelectModule,
     MdListModule,
@@ -170,6 +174,7 @@ import { SkillByGroupPipe } from './pipes/skill-by-group.pipe';
     MdToolbarModule,
     MdTooltipModule,
     MdAutocompleteModule,
+    MdExpansionModule,
     MdInputModule,
     MdMenuModule,
     MdSelectModule,

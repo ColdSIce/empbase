@@ -1,5 +1,10 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
+import { Division } from '../../../models/division';
+import { DivisionService } from '../../../services/division.service';
+import { Router } from '@angular/router';
+import { ToasterService } from 'angular2-toaster';
+import { DivisionInListComponent } from '../../division-in-list/division-in-list.component';
 
 @Component({
   selector: 'app-division-list',
@@ -10,9 +15,35 @@ import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
 })
 export class DivisionListComponent implements OnInit {
 
-  constructor() { }
+  mode = "Indeterminate";
+  inProgress = false;
+  division:Division;
+  rootId:number = 3;
+
+  constructor(private router: Router,
+    private ds:DivisionService,
+    private ts:ToasterService) {
+    this.inProgress = true;
+  }
 
   ngOnInit() {
+    this.ds.getTreeByRoot(this.rootId).subscribe((data) => {
+      this.mode = "Query";
+      this.division = data.json() as Division;
+      console.log(this.division);
+    },(error) => {
+      this.ts.pop('error', 'Ошибка', error);
+    });
+    this.mode = "Indeterminate";
+    this.inProgress = false;
+  }
+
+  create(){
+    this.router.navigate(['/division/create']);
+  }
+
+  goToPosition(orgId:number){
+    if(orgId) this.router.navigate(['/division/view/' + orgId]);
   }
 
 }

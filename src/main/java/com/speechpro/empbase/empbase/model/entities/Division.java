@@ -6,6 +6,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Division {
@@ -52,6 +53,9 @@ public class Division {
     @JoinColumn(name = "headId")
     @Fetch(FetchMode.JOIN)
     private Employee head;
+
+    @Transient
+    List<Division> divisions;
 
     public Division() {
     }
@@ -118,5 +122,13 @@ public class Division {
 
     public void setHead(Employee head) {
         this.head = head;
+    }
+
+    public List<Division> getDivisions() {
+        return divisions;
+    }
+
+    public void setDivisions(List<Division> divisions) {
+        this.divisions = divisions;
     }
 }

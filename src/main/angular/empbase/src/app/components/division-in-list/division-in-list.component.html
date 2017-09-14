@@ -1,0 +1,16 @@
+<md-expansion-panel hideToggle="true" class="exp_panel">
+    <md-expansion-panel-header>
+      <md-panel-title [ngStyle]="{'margin-left.px':innerMargin}">
+        <md-icon class="group_icon">group</md-icon>
+        <span>{{division?.name}}<span *ngIf="division?.nameEng"> | {{division?.nameEng}}</span></span>
+      </md-panel-title>
+      <md-panel-description>   
+      </md-panel-description>
+    </md-expansion-panel-header>
+    <p *ngIf="division?.head" [ngStyle]="{'margin-left.px':innerMargin}">Руководитель: {{division?.head.fio}}</p>
+    <p *ngIf="division?.head" [ngStyle]="{'margin-left.px':innerMargin}">Email: {{division?.email}}</p>
+    <md-action-row class="action_row">
+      <button md-button [ngStyle]="{'margin-left.px':innerMargin}">Управление</button>
+    </md-action-row>
+  </md-expansion-panel>
+  <app-division-in-list *ngFor="let div of division?.divisions" [division]="div" [margin]="innerMargin"></app-division-in-list>

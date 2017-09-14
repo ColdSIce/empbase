@@ -10,6 +10,7 @@ import java.util.List;
 public interface DivisionService {
     Division getById(Long id);
     List<Division> getAll();
+    Division getTreeByRoot(Division root);
     List<Division> getAllByParent(Division division);
     List<Employee> getEmployeesByDivision(Division division);
     List<Employee> getEmployeesByDivisionRecursively(Division division);
