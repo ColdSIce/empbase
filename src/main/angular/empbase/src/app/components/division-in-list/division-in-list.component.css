@@ -36,3 +36,16 @@
 .mat-expansion-panel-header:not([aria-disabled='true']):hover{
     background: #E0F2F1;
 }
+
+.div_info{
+    display: none;
+    transition: all .3s ease;
+}
+
+.mat-expansion-panel-header.mat-expanded .div_info:hover{
+  color: #ff9800;
+}
+
+.mat-expansion-panel-header.mat-expanded .div_info{
+    display: block;
+}

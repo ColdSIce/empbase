@@ -8,8 +8,8 @@ export class Division{
         public link:string,
         public email:string,
         public rootDivisionId:number,
-        public oldId:number,
         public head:Employee,
-        public divisions?:Division[]
+        public divisions?:Division[],
+        public oldId?:number,
     ){}
 }

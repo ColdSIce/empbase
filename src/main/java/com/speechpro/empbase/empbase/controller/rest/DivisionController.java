@@ -30,6 +30,11 @@ public class DivisionController {
         return new ResponseEntity<List<Employee>>(divisionService.getEmployeesByDivisionRecursively(division), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/division/all", method = RequestMethod.GET)
+    List<Division> get(){
+        return divisionService.getAll();
+    }
+
     @RequestMapping(value = "/division/{id}", method = RequestMethod.GET)
     Division get(@PathVariable Long id){
         return divisionService.getById(id);

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Division } from '../../models/division';
 import { DivisionService } from '../../services/division.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-division-in-list',
@@ -13,10 +14,14 @@ export class DivisionInListComponent implements OnInit {
   @Input('margin') margin:number;
   innerMargin:number;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.innerMargin = this.margin + 15;
+  }
+
+  goToDiv(id:number){
+    if(id) this.router.navigate(['/division/view/' + id]);
   }
 
 }

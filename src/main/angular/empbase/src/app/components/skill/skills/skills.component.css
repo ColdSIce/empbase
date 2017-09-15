@@ -33,10 +33,15 @@
 
 .sg_info{
     display: none;
+    transition: all .3s ease;
 }
 
 .sg_row.selected .sg_info{
     display: block;
+}
+
+.sg_row.selected .sg_info:hover{
+    color: #ff9800;
 }
 
 .sg_title h4,

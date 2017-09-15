@@ -15,6 +15,10 @@ export class DivisionService{
         return this.http.get('/api/division/' + id);
     }
 
+    getAllDivisions(){
+        return this.http.get('/api/division/all');
+    }
+
     create(division:Division){
         return this.http.post('/api/division', division);
     }

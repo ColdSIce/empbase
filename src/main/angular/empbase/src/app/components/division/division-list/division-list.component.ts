@@ -42,8 +42,8 @@ export class DivisionListComponent implements OnInit {
     this.router.navigate(['/division/create']);
   }
 
-  goToPosition(orgId:number){
-    if(orgId) this.router.navigate(['/division/view/' + orgId]);
+  goToDiv(id:number){
+    if(id) this.router.navigate(['/division/view/' + id]);
   }
 
 }

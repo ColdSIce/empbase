@@ -33,10 +33,15 @@
 
 .office_info{
     display: none;
+    transition: all .3s ease;
 }
 
 .office_row.selected .office_info{
     display: block;
+}
+
+.office_row.selected .office_info:hover{
+    color: #ff9800;
 }
 
 .office_title h4,
