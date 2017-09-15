@@ -23,11 +23,12 @@ export class EmployeeListComponent implements OnInit {
 
   divSearchControl:FormControl;
   employeeSearchControl:FormControl;
+  divIdSearchControl:FormControl;
   divisions:Division[];
   filteredDivisions: any;
   employees:Employee[];
   filteredEmployees: any;
-  
+
   mode = "Indeterminate";
   inProgress = false;
   
@@ -41,6 +42,7 @@ export class EmployeeListComponent implements OnInit {
     this.inProgress = true;
     this.divSearchControl = new FormControl();
     this.employeeSearchControl = new FormControl();
+    this.divIdSearchControl = new FormControl();
     
   }
 
@@ -71,8 +73,8 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  filterDivs(val: string) {
-    return val ? this.divisions.filter(d => d.name.toLowerCase().indexOf(val.toLowerCase()) === 0)
+  filterDivs(val: Division) {
+    return val ? this.divisions.filter(d => d.id == val.id)
                : this.divisions;
   }
 
@@ -87,6 +89,10 @@ export class EmployeeListComponent implements OnInit {
 
   onEmployeeSearch(){
     
+  }
+
+  displayDivName(div:Division): string {
+    if(div) return div.name;
   }
 
 }

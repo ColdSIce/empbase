@@ -31,8 +31,8 @@
         <md-input-container class="search div-search-form">
           <input mdInput placeholder="Подразделение" [mdAutocomplete]="autoDivs" [formControl]="divSearchControl">
         </md-input-container>
-        <md-autocomplete #autoDivs="mdAutocomplete">
-          <md-option *ngFor="let fd of filteredDivisions | async" [value]="fd.name">
+        <md-autocomplete #autoDivs="mdAutocomplete" [displayWith]="displayDivName">
+          <md-option *ngFor="let fd of filteredDivisions | async" [value]="fd">
             {{fd.name}}
           </md-option>
         </md-autocomplete>
@@ -41,9 +41,11 @@
 
   </div>
   <div class="col-md-9">
-    <div *ngFor="let emp of employees" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <app-employee [employee]="emp" class="emp_card"></app-employee>
-    </div>
+    <masonry>
+      <masonry-brick class="brick" *ngFor="let emp of employees | employeeByDivision:divSearchControl.value | employeeByFio:employeeSearchControl.value | alphabeticalEmployees">
+        <app-employee [employee]="emp" class="emp_card"></app-employee>
+      </masonry-brick>
+    </masonry>
   </div>
 </div>
 

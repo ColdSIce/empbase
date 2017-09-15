@@ -22,6 +22,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { HttpModule }    from '@angular/http';
+import { MasonryModule } from 'angular2-masonry';
 
 import { ApplicationService } from './services/application.service';
 import { ContactService } from './services/contact.service';
@@ -79,6 +80,9 @@ import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
 import { RoomByOfficePipe } from './pipes/room-by-office.pipe';
 import { SkillByGroupPipe } from './pipes/skill-by-group.pipe';
 import { DivisionInListComponent } from './components/division-in-list/division-in-list.component';
+import { EmployeeByDivisionPipe } from './pipes/employee-by-division.pipe';
+import { EmployeeByFioPipe } from './pipes/employee-by-fio.pipe';
+import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
 
 
 @NgModule({
@@ -126,7 +130,10 @@ import { DivisionInListComponent } from './components/division-in-list/division-
     PositionByPropPipe,
     RoomByOfficePipe,
     SkillByGroupPipe,
-    DivisionInListComponent
+    DivisionInListComponent,
+    EmployeeByDivisionPipe,
+    EmployeeByFioPipe,
+    AlphabeticalPipe
   ],
   imports: [
     BrowserModule,
@@ -140,6 +147,7 @@ import { DivisionInListComponent } from './components/division-in-list/division-
     MdToolbarModule,
     MdExpansionModule,
     MdIconModule,
+    MasonryModule,
     MdSelectModule,
     MdListModule,
     MdAutocompleteModule,
