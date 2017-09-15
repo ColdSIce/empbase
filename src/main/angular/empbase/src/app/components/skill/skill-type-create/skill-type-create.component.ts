@@ -57,7 +57,7 @@ export class SkillTypeCreateComponent implements OnInit {
 
   cancel(){
     this.sgForm.reset();
-    this.router.navigate(['/skills']);
+    this.router.navigate(['/skill']);
   }
 
 }

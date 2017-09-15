@@ -5,6 +5,7 @@ import { Location } from './location';
 import { Organization } from './organization';
 
 export class Employee{
+    public id?:number;
     constructor(
         public position:Position,
         public divisionId:number,

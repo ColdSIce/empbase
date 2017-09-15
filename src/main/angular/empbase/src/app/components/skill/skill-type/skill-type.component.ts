@@ -54,7 +54,7 @@ export class SkillTypeComponent implements OnInit {
     );
   }
 
-  toOffices(){
+  toSkills(){
     this.router.navigate(['/skill']);
   }
 

@@ -98,7 +98,7 @@ export class SkillCreateComponent implements OnInit {
 
   cancel(){
     this.skillForm.reset();
-    this.router.navigate(['/skills']);
+    this.router.navigate(['/skill']);
   }
 
 }
