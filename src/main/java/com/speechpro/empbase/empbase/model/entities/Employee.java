@@ -13,6 +13,7 @@ public class Employee {
     public Employee(Position position,
                     Long divisionId,
                     Set<Skill> skills,
+                    Set<Contact> contacts,
                     Image image,
                     String fio,
                     String fioEng,
@@ -29,6 +30,7 @@ public class Employee {
         this.position = position;
         this.divisionId = divisionId;
         this.skills = skills;
+        this.contacts = contacts;
         this.image = image;
         this.fio = fio;
         this.fioEng = fioEng;
@@ -63,6 +65,9 @@ public class Employee {
     @JoinColumn(name = "imgid")
     @Fetch(FetchMode.JOIN)
     private Image image;
+
+    @OneToMany(mappedBy="employee")
+    private Set<Contact> contacts;
 
     @Column(length = 128)
     private String fio;
@@ -235,5 +240,21 @@ public class Employee {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Set<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Set<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

@@ -5,7 +5,7 @@ export class Contact{
     public id?:number;
     constructor(
         public value:string,
-        public employee:Employee,
-        public contactType:ContactType
+        public contactType:ContactType,
+        public employee:Employee
     ){}
 }

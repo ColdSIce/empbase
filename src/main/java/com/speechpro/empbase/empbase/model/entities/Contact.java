@@ -1,5 +1,6 @@
 package com.speechpro.empbase.empbase.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -26,8 +27,8 @@ public class Contact {
     @Fetch(FetchMode.JOIN)
     private ContactType contactType;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employeeId")
     @Fetch(FetchMode.JOIN)
     private Employee employee;
 

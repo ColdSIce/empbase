@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeComponent } from '../employee/employee.component';
 import { EmployeeEditComponent } from '../employee-edit/employee-edit.component';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import { Router } from '@angular/router';
 import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
+import { Division } from '../../../models/division';
+import { DivisionService } from '../../../services/division.service';
+import { Employee } from '../../../models/employee';
+import { EmployeeService } from '../../../services/employee.service';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToasterService } from 'angular2-toaster';
 
 @Component({
   selector: 'app-employee-list',
@@ -17,47 +22,63 @@ import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
 export class EmployeeListComponent implements OnInit {
 
   divSearchControl:FormControl;
-  employeeSearchForm:FormGroup;
-  divisions:string[] = ['ЦРТ', 
-  'Финансовый департамент', 
-  'Управление по работе с персоналом', 
-  'Коммерческий департамент', 
-  'Департамент управления проектами', 
-  'Департамент разработки', 
-  'Продуктовое управление систем записи итп', 
-  'Управление IT', 
-  'Управление по производству', 
-  'Управление по контролю качества', 
-  'Склад готовой продукции', 
-  'Филиал в г.Москва', 
-  'Департамент СТС'];
+  employeeSearchControl:FormControl;
+  divisions:Division[];
   filteredDivisions: any;
+  employees:Employee[];
+  filteredEmployees: any;
+  
   mode = "Indeterminate";
   inProgress = false;
-  postForm:FormGroup;
+  
 
-  constructor(private fb:FormBuilder,private router: Router) {
+  constructor(
+    private fb:FormBuilder,
+    private router: Router,
+    private ds:DivisionService,
+    private es:EmployeeService,
+    private ts:ToasterService) {
     this.inProgress = true;
-    this.createSearchForms();
     this.divSearchControl = new FormControl();
-    this.filteredDivisions = this.divSearchControl.valueChanges
-        .startWith(null)
-        .map(name => this.filter(name));
-    this.inProgress = false;
+    this.employeeSearchControl = new FormControl();
+    
   }
 
   ngOnInit() {
-  }
+    this.ds.getAllDivisions().subscribe((data) => {
+      this.mode = "Query";
+      this.divisions = data.json() as Division[];
 
-  createSearchForms(){
-    this.employeeSearchForm = this.fb.group ({
-      employeeSearchControl: ['']
+      this.es.getAll().subscribe((data) => {
+        this.mode = "Query";
+        this.employees = data.json() as Employee[];
+
+        this.filteredDivisions = this.divSearchControl.valueChanges
+            .startWith(null)
+            .map(name => this.filterDivs(name));
+        this.filteredEmployees = this.employeeSearchControl.valueChanges
+            .startWith(null)
+            .map(name => this.filterEmpls(name));
+
+        this.mode = "Indeterminate";
+        this.inProgress = false;
+      },(error) => {
+        this.ts.pop('error', 'Ошибка', error);
+      });
+
+    },(error) => {
+      this.ts.pop('error', 'Ошибка', error);
     });
   }
 
-  filter(val: string) {
-    return val ? this.divisions.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
+  filterDivs(val: string) {
+    return val ? this.divisions.filter(d => d.name.toLowerCase().indexOf(val.toLowerCase()) === 0)
                : this.divisions;
+  }
+
+  filterEmpls(val: string) {
+    return val ? this.employees.filter(e => e.fio.toLowerCase().indexOf(val.toLowerCase()) === 0)
+               : this.employees;
   }
 
   create(){
