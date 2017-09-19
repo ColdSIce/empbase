@@ -5,21 +5,23 @@
     <md-icon aria-label="Создать должность">add</md-icon>
   </button>
 </div>
-<md-accordion class="example-headers-align">
-  <md-expansion-panel hideToggle="true" class="exp_panel">
-    <md-expansion-panel-header>
-      <md-panel-title>
-        <md-icon class="group_icon">group</md-icon>
-        <md-icon class="note-icon group_icon div_info" title="Управление" (click)="goToDiv(division?.id)" md-list-icon>
-          settings
-        </md-icon>
-        <span>{{division?.name}}<span *ngIf="division?.nameEng"> | {{division?.nameEng}}</span></span>
-      </md-panel-title>
-      <md-panel-description>   
-      </md-panel-description>
-    </md-expansion-panel-header>
-    <p *ngIf="division?.head">Руководитель: {{division?.head.fio}}</p>
-    <p *ngIf="division?.head">Email: {{division?.email}}</p>
-  </md-expansion-panel>
-  <app-division-in-list *ngFor="let div of division?.divisions" [division]="div" [margin]="0"></app-division-in-list>
-</md-accordion>
+<div class="scrollable">
+  <md-accordion class="example-headers-align">
+    <md-expansion-panel hideToggle="true" class="exp_panel">
+      <md-expansion-panel-header>
+        <md-panel-title>
+          <md-icon class="group_icon">group</md-icon>
+          <md-icon class="note-icon group_icon div_info" title="Управление" (click)="goToDiv(division?.id)" md-list-icon>
+            settings
+          </md-icon>
+          <span>{{division?.name}}<span *ngIf="division?.nameEng"> | {{division?.nameEng}}</span></span>
+        </md-panel-title>
+        <md-panel-description>   
+        </md-panel-description>
+      </md-expansion-panel-header>
+      <p *ngIf="division?.head">Руководитель: {{division?.head.fio}}</p>
+      <p *ngIf="division?.head">Email: {{division?.email}}</p>
+    </md-expansion-panel>
+    <app-division-in-list *ngFor="let div of division?.divisions" [division]="div" [margin]="0"></app-division-in-list>
+  </md-accordion>
+</div>

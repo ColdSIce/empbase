@@ -8,7 +8,7 @@ import { SkillGroup } from '../models/skillGroup';
 export class SkillByGroupPipe implements PipeTransform {
 
   transform(skills: Array<Skill>, prop: SkillGroup): Array<any> {
-      return prop ? skills.filter(s => s.skillGroup.name === prop.name)
+      return prop ? skills.filter(s => s.skillGroup == null ? false : s.skillGroup.id === prop.id)
                : skills;
   }
 

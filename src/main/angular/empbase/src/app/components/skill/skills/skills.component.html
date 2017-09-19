@@ -18,7 +18,7 @@
     <md-list>
       <md-list-item [ngClass]="{'selected':sg.selected}" class="sg_row" (click)="selectSG(sg)" *ngFor="let sg of sgs">
         <md-icon class="note-icon" md-list-icon>fiber_smart_record</md-icon>
-        <h4 md-line>{{sg.name}}</h4>
+        <h4 md-line *ngIf="sg?.name">{{sg?.name}}</h4>
         <md-icon class="note-icon sg_info" title="Управление" (click)="goToSG(sg?.id)" md-list-icon>
           settings
         </md-icon>
@@ -34,8 +34,8 @@
     <md-list>
       <md-list-item class="skill_row" (click)="goToSkill(skill?.id)" *ngFor="let skill of skills | skillByGroup:selectedSG">
         <md-icon class="note-icon" md-list-icon>fiber_manual_record</md-icon>
-        <h4 md-line>{{skill.name}}</h4>
-        <p md-line>Группа: {{skill.skillGroup.name}}</p>
+        <h4 md-line *ngIf="skill?.name">{{skill?.name}}</h4>
+        <p md-line *ngIf="skill?.skillGroup?.name">Группа: {{skill?.skillGroup?.name}}</p>
       </md-list-item>
     </md-list>
   </div>

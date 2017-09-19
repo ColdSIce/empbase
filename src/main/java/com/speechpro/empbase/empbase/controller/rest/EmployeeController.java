@@ -1,6 +1,7 @@
 package com.speechpro.empbase.empbase.controller.rest;
 
 import com.speechpro.empbase.empbase.model.entities.Employee;
+import com.speechpro.empbase.empbase.service.DivisionService;
 import com.speechpro.empbase.empbase.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,17 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private DivisionService divisionService;
+
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     List<Employee> getAll(){
         return employeeService.getAll();
+    }
+
+    @RequestMapping(value = "/employee/active", method = RequestMethod.GET)
+    List<Employee> getAllActive(){
+        return employeeService.getActive();
     }
 
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)

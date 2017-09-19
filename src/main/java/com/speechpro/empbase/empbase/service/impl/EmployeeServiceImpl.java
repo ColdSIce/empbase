@@ -63,4 +63,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> getByDivision(Division division) {
         return employeeRepository.findByDivisionId(division.getId());
     }
+
+    @Override
+    public List<Employee> getActive() {
+        return employeeRepository.findByActive(true);
+    }
 }

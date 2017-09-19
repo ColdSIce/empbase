@@ -14,7 +14,7 @@ public class Employee {
                     Long divisionId,
                     Set<Skill> skills,
                     Set<Contact> contacts,
-                    Image image,
+                    Long imageId,
                     String fio,
                     String fioEng,
                     String gender,
@@ -31,7 +31,7 @@ public class Employee {
         this.divisionId = divisionId;
         this.skills = skills;
         this.contacts = contacts;
-        this.image = image;
+        this.imageId = imageId;
         this.fio = fio;
         this.fioEng = fioEng;
         this.gender = gender;
@@ -61,10 +61,8 @@ public class Employee {
     @ManyToMany(mappedBy = "employees")
     private Set<Skill> skills;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "imgid")
-    @Fetch(FetchMode.JOIN)
-    private Image image;
+    @Column
+    private Long imageId;
 
     @OneToMany(mappedBy="employee")
     private Set<Contact> contacts;
@@ -146,12 +144,12 @@ public class Employee {
         this.skills = skills;
     }
 
-    public Image getImage() {
-        return image;
+    public Long getImageId() {
+        return imageId;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
     }
 
     public String getFio() {

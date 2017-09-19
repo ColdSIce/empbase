@@ -2,6 +2,7 @@ package com.speechpro.empbase.empbase.model.entities;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -19,13 +20,14 @@ public class Image {
     @GeneratedValue
     private Long id;
 
-    @Column
+    @Lob
+    @Column(length=100000, nullable = false)
     private byte[] binImage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "typeId")
     @Fetch(FetchMode.JOIN)
-    private ImageType imageType;
+    private ImageType imageType;*/
 
     public Long getId() {
         return id;
@@ -43,11 +45,11 @@ public class Image {
         this.binImage = binImage;
     }
 
-    public ImageType getImageType() {
+    /*public ImageType getImageType() {
         return imageType;
     }
 
     public void setImageType(ImageType imageType) {
         this.imageType = imageType;
-    }
+    }*/
 }

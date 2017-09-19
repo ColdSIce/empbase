@@ -12,7 +12,6 @@
 .filter_col,
 .emp_col{
     padding-top: 15px;
-    overflow-y: scroll; 
     height: 100%;
 }
 
@@ -38,4 +37,16 @@
     z-index: 20;
 }
 
+.masonry_cont{
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.masonry_cont, .emp_title{
+    background: #eee;
+}
+
+.msnr{
+    margin-bottom: 200px;
+}
 

@@ -27,4 +27,8 @@ export class EmployeeService{
         return this.http.get('/api/employee/');
     }
 
+    getActive(){
+        return this.http.get('/api/employee/active');
+    }
+
 }

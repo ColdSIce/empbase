@@ -23,6 +23,11 @@ public class ImageController {
         return imageService.getById(id);
     }
 
+    @RequestMapping(value = "/image/{id}/source", method = RequestMethod.GET)
+    byte[] getImageSource(@PathVariable Long id){
+        return imageService.getById(id).getBinImage();
+    }
+
     @RequestMapping(value = "/image", method = RequestMethod.POST)
     Image createImage(@RequestBody Image image){
         return imageService.create(image);

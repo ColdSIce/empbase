@@ -18,8 +18,8 @@
     <md-list>
       <md-list-item [ngClass]="{'selected':office.selected}" class="office_row" (click)="selectOffice(office)" *ngFor="let office of offices">
         <md-icon class="note-icon" md-list-icon>home</md-icon>
-        <h4 md-line>{{office.name}}<span> | {{office.nameEng}} </span><span> | {{office.shortName}} </span></h4>
-        <p md-line>Руководитель: {{office.head.fio}} </p>
+        <h4 md-line>{{office.name}}<span *ngIf="office.nameEng"> | {{office.nameEng}} </span><span *ngIf="office.shortName"> | {{office.shortName}} </span></h4>
+        <p md-line *ngIf="office.head">Руководитель: {{office.head?.fio}} </p>
         <md-icon class="note-icon office_info" title="Управление" (click)="goToOffice(office?.id)" md-list-icon>
           settings
         </md-icon>

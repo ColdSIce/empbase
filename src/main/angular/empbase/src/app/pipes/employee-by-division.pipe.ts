@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 export class EmployeeByDivisionPipe implements PipeTransform {
 
   transform(employees: Array<Employee>, prop: Division): Array<any> {
-      return prop ? employees.filter(e => e.divisionId == prop.id)
+      return prop ? employees.filter(e => e.divisionId == null ? false : e.divisionId == prop.id)
                : employees;
   }
 

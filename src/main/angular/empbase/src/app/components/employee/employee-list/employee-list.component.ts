@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
 import { Division } from '../../../models/division';
 import { DivisionService } from '../../../services/division.service';
+import { ImageService } from '../../../services/image.service';
 import { Employee } from '../../../models/employee';
 import { EmployeeService } from '../../../services/employee.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -28,6 +29,8 @@ export class EmployeeListComponent implements OnInit {
   filteredDivisions: any;
   employees:Employee[];
   filteredEmployees: any;
+  disabled:false;
+  onlyActive:true;
 
   mode = "Indeterminate";
   inProgress = false;
@@ -38,6 +41,7 @@ export class EmployeeListComponent implements OnInit {
     private router: Router,
     private ds:DivisionService,
     private es:EmployeeService,
+    private is:ImageService,
     private ts:ToasterService) {
     this.inProgress = true;
     this.divSearchControl = new FormControl();
@@ -51,7 +55,7 @@ export class EmployeeListComponent implements OnInit {
       this.mode = "Query";
       this.divisions = data.json() as Division[];
 
-      this.es.getAll().subscribe((data) => {
+      this.ds.getAllEmployeesByDivision(199).subscribe((data) => {
         this.mode = "Query";
         this.employees = data.json() as Employee[];
 
@@ -79,7 +83,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   filterEmpls(val: string) {
-    return val ? this.employees.filter(e => e.fio.toLowerCase().indexOf(val.toLowerCase()) === 0)
+    return val ? this.employees.filter(e => e.fio == null ? false : e.fio.toLowerCase().indexOf(val.toLowerCase()) === 0)
                : this.employees;
   }
 

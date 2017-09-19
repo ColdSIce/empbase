@@ -75,7 +75,7 @@ export class OfficeEditComponent implements OnInit {
       name: ['', Validators.required ],
       nameEng: [''],
       shortName: [''],
-      head:['', Validators.required ]
+      head:['' ]
     });
   }
 

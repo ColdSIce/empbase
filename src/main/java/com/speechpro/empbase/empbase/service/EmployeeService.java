@@ -10,6 +10,7 @@ import java.util.List;
 public interface EmployeeService {
 
     List<Employee> getAll();
+    List<Employee> getActive();
     Employee getById(Long id);
     Employee getByUname(String uname);
     Employee getByOnesId(String onesId);

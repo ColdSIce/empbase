@@ -12,6 +12,10 @@ export class ImageService{
         return this.http.get('/api/image/' + id);
     }
 
+    getImageSource(id:number){
+        return this.http.get('/api/image/' + id + '/source');
+    }
+
     create(image:Image){
         return this.http.post('/api/image', image);
     }

@@ -131,4 +131,5 @@ public class Division {
     public void setDivisions(List<Division> divisions) {
         this.divisions = divisions;
     }
+
 }

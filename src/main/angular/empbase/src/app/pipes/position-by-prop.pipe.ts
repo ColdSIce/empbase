@@ -7,7 +7,7 @@ import { Position } from '../models/position';
 export class PositionByPropPipe implements PipeTransform {
 
   transform(positions: Array<Position>, prop: string): Array<any> {
-      return prop ? positions.filter(p => p.position.toLowerCase().indexOf(prop.toLowerCase()) === 0)
+      return prop ? positions.filter(p => p.position == null ? false : p.position.toLowerCase().indexOf(prop.toLowerCase()) === 0)
                : positions;
   }
 

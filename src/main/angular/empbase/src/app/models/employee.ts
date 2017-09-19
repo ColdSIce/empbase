@@ -2,6 +2,7 @@ import { Position } from './position';
 import { Skill } from './skill';
 import { Image } from './image';
 import { Location } from './location';
+import { Contact } from './contact';
 import { Organization } from './organization';
 
 export class Employee{
@@ -10,6 +11,7 @@ export class Employee{
         public position:Position,
         public divisionId:number,
         public skills:Skill[],
+        public contacts:Contact[],
         public image:Image,
         public fio:string,
         public fioEng:string,

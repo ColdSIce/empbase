@@ -5,8 +5,8 @@
     <md-list>
       <md-list-item class="org_row">
         <md-icon class="note-icon" md-list-icon>home</md-icon>
-        <h4 md-line>Имя: {{office?.name}}<span> | Имя (eng): {{office?.nameEng}}</span><span> | Короткое имя: {{office?.shortName}}</span></h4>
-        <p md-line>Руководитель: {{office?.head.fio}} </p>
+        <h4 md-line>{{office?.name}}<span *ngIf="office?.nameEng"> | {{office?.nameEng}} </span><span *ngIf="office?.shortName"> | {{office?.shortName}} </span></h4>
+        <p md-line *ngIf="office?.head">Руководитель: {{office?.head?.fio}} </p>
       </md-list-item>
     </md-list>
   </md-card-content>

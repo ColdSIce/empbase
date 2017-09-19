@@ -4,10 +4,12 @@
     <md-card-title>{{employee?.fio}}</md-card-title>
     <md-card-subtitle>{{employee?.position?.position}}</md-card-subtitle>
   </md-card-header>
-  <img md-card-image src="../../assets/images.jpg" alt="Photo of a Shiba Inu">
+  <img class="employee_photo" *ngIf="!employee?.imageId" md-card-image src="../../assets/images.jpg" alt="{{employee?.fio}}">
+  <img class="employee_photo" *ngIf="employee?.imageId" md-card-image src="/api/image/{{employee?.imageId}}/source" alt="{{employee?.fio}}">
   <md-card-content>
     <p *ngFor="let cont of employee?.contacts">
-      <span>{{cont.contactType.name}}: <span style="color: #555;">{{cont.value}}</span></span>
+      <span *ngIf="!itIsEmail(cont.value)">{{cont?.contactType?.name}}: <span style="color: #555;">{{cont?.value}}</span></span>
+      <span *ngIf="itIsEmail(cont.value)">{{cont?.contactType?.name}}: <a style="color: #555;" href="mailto:{{cont.value}}">{{cont?.value}}</a></span>
     </p>
   </md-card-content>
 </md-card>
