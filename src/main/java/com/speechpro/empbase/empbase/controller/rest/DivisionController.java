@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +28,7 @@ public class DivisionController {
     ResponseEntity<List<Employee>> getAll(@PathVariable Long id){
         Division division = divisionService.getById(id);
         if(division == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<List<Employee>>(divisionService.getEmployeesByDivisionRecursively(division), HttpStatus.OK);
+        return new ResponseEntity<List<Employee>>(divisionService.getEmployeesByDivisionRecursively(division).stream().filter(Employee::isActive).collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/division/all", method = RequestMethod.GET)
