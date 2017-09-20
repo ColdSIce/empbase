@@ -44,4 +44,9 @@ public class OfficeServiceImpl implements OfficeService{
     public List<Office> getByHead(Employee employee) {
         return officeRepository.findByHead(employee);
     }
+
+    @Override
+    public Office getByName(String officeName) {
+        return officeRepository.findOneByName(officeName);
+    }
 }

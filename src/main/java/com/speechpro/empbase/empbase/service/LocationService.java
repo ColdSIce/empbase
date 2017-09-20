@@ -15,4 +15,6 @@ public interface LocationService {
     void delete(Location location);
 
     List<Location> getByOffice(Office office);
+
+    Location getByName(String location);
 }

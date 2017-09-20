@@ -15,6 +15,10 @@ export class DivisionService{
         return this.http.get('/api/division/' + id);
     }
 
+    getAllByParentDivision(id:number){
+        return this.http.get('/api/division/' + id + '/all');
+    }
+
     getAllDivisions(){
         return this.http.get('/api/division/all');
     }
@@ -31,8 +35,16 @@ export class DivisionService{
         if(id) return this.http.delete('/api/division/' + id);
     }
 
-    getAllEmployeesByDivision(divId:number){
-        return this.http.get('/api/division/' + divId + '/employee/all');
+    getAllEmployeesByDivision(divId:number, active?:boolean, employee?:string, location?:string, office?:string, position?:string){
+        let anyParam:boolean = active != null || employee != null || location != null || office != null || position != null;
+        let url = '/api/division/' + divId + '/employee/all';
+        if(anyParam) url += '?';
+        if(active != null) url += 'active=' + active;
+        if(employee != null) url += '&employee=' + employee;
+        if(location != null) url += '&location=' + location;
+        if(office != null) url += '&office=' + office;
+        if(position != null) url += '&position=' + position;
+        return this.http.get(url);
     }
 
     getHead(divId:number){

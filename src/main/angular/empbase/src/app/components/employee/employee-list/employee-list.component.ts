@@ -29,9 +29,11 @@ export class EmployeeListComponent implements OnInit {
   filteredDivisions: any;
   employees:Employee[];
   filteredEmployees: any;
-  disabled:false;
-  onlyActive:true;
+  onlyActive=true;
   rendered:Employee[] = [];
+  selectedDiv:Division;
+  selectedEmployee:Employee;
+  stc:Division;
 
   mode = "Indeterminate";
   inProgress = false;
@@ -53,39 +55,49 @@ export class EmployeeListComponent implements OnInit {
 
   ngOnInit() {
     this.ds.getAllDivisions().subscribe((data) => {
-      this.mode = "Query";
       this.divisions = data.json() as Division[];
 
-      this.ds.getAllEmployeesByDivision(85).subscribe((data) => {
-        this.mode = "Query";
-        this.employees = data.json() as Employee[];
-        this.fillRendered();
+      this.selectedDiv = this.divisions.find(d => d.name === "ЦРТ");
+      this.stc = this.selectedDiv;
+      this.divSearchControl.setValue(this.selectedDiv);
 
-        this.filteredDivisions = this.divSearchControl.valueChanges
-            .startWith(null)
-            .map(name => this.filterDivs(name));
-
-        this.filteredEmployees = this.employeeSearchControl.valueChanges
-            .startWith(null)
-            .map(name => this.filterEmpls(name));
-
-        this.mode = "Indeterminate";
-        this.inProgress = false;
-      },(error) => {
-        this.ts.pop('error', 'Ошибка', error);
-      });
+      this.loadEmployees(this.selectedDiv == null ? 85 : this.selectedDiv.id, this.onlyActive);
 
     },(error) => {
       this.ts.pop('error', 'Ошибка', error);
     });
   }
 
-  filterDivs(val: Division) {
-    return val ? this.divisions.filter(d => d.id == val.id)
+  loadEmployees(divId:number, active?:boolean, employee?:string, location?:string, office?:string, position?:string){
+    this.inProgress = true;
+    this.rendered = [];
+    this.ds.getAllEmployeesByDivision(divId, active, employee, location, office, position).subscribe((data) => {
+      this.employees = data.json() as Employee[];
+
+      this.rendered = this.rendered.concat(this.employees.slice(this.rendered.length, this.rendered.length + 8))
+
+      this.filteredDivisions = this.divSearchControl.valueChanges
+          .startWith(null)
+          .map(name => this.filterDivs(name));
+          
+      this.filteredEmployees = this.employeeSearchControl.valueChanges
+          .startWith(null)
+          .map(name => this.filterEmpls(name));
+
+      this.inProgress = false;
+    },(error) => {
+      this.ts.pop('error', 'Ошибка', error);
+    });
+  }
+
+  filterDivs(val: any) {
+    if(typeof(val) == "object") return;
+    return val ? this.divisions.filter(d => d.name.toUpperCase().indexOf(val.toUpperCase()) > -1)
                : this.divisions;
   }
 
-  filterEmpls(val: string) {
+  filterEmpls(val: any) {
+    if(typeof(val) == "object") return;
     return val ? this.employees.filter(e => e.fio == null ? false : e.fio.toLowerCase().indexOf(val.toLowerCase()) === 0)
                : this.employees;
   }
@@ -102,8 +114,39 @@ export class EmployeeListComponent implements OnInit {
     if(div) return div.name;
   }
 
+  displayEmpName(emp:Employee):string{
+    if(emp) return emp.fio;
+  }
+
   fillRendered(){
     this.rendered = this.rendered.concat(this.employees.slice(this.rendered.length, this.rendered.length + 5))
+  }
+
+  activeChanged(){
+    this.onlyActive = !this.onlyActive;
+    this.loadEmployees(this.selectedDiv == null ? 85 : this.selectedDiv.id, this.onlyActive);
+  }
+
+  divisionSelected(){
+    this.selectedDiv = this.divSearchControl.value;
+    this.loadEmployees(this.selectedDiv == null ? 85 : this.selectedDiv.id, this.onlyActive);
+  }
+
+  employeeSelected(){
+    console.log(this.employeeSearchControl.value);
+    this.selectedEmployee = this.employeeSearchControl.value;
+    this.loadEmployees(this.selectedDiv == null ? 85 : this.selectedDiv.id, this.onlyActive, this.selectedEmployee.uname);
+  }
+
+  dropSelectedDiv(){
+    this.divSearchControl.setValue(this.stc);
+    this.selectedDiv = this.stc;
+    this.loadEmployees(this.selectedDiv == null ? 85 : this.selectedDiv.id, this.onlyActive);
+  }
+
+  dropSelectedEmp(){
+    this.employeeSearchControl.setValue("");
+    this.loadEmployees(this.selectedDiv == null ? 85 : this.selectedDiv.id, this.onlyActive);
   }
   
 }

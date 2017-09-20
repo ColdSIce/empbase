@@ -12,4 +12,6 @@ public interface PositionService {
     Position create(Position position);
     Position update(Position position);
     void delete(Position position);
+
+    Position getByName(String positionName);
 }

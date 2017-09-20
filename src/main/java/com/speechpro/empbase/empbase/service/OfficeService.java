@@ -15,4 +15,6 @@ public interface OfficeService {
     void delete(Office office);
 
     List<Office> getByHead(Employee employee);
+
+    Office getByName(String officeName);
 }

@@ -44,4 +44,9 @@ public class LocationServiceImpl implements LocationService{
     public List<Location> getByOffice(Office office) {
         return locationRepository.findByOffice(office);
     }
+
+    @Override
+    public Location getByName(String location) {
+        return locationRepository.findOneByName(location);
+    }
 }

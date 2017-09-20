@@ -1,4 +1,5 @@
 <md-progress-bar class="progress" *ngIf="inProgress" mode="{{mode}}" color="accent" class="emp_list_progress_bar"></md-progress-bar>
+<toaster-container></toaster-container>
 <div class="add_btn">
   <button md-fab color="accent" (click)="create()">
     <md-icon aria-label="Создать нового сотрудника">add</md-icon>
@@ -17,32 +18,45 @@
 <div class="row component_body" style="margin:0px;">
   <div class="col-md-3 filter_col">
     <div class="col-md-12">
-      <div class="row">
-        <md-input-container class="search emp-search-form">
-          <input mdInput placeholder="Сотрудник" [mdAutocomplete]="autoEmpls" [formControl]="employeeSearchControl">
-        </md-input-container>
-        <md-autocomplete #autoEmpls="mdAutocomplete">
-          <md-option *ngFor="let em of filteredEmployees | async" [value]="em.fio">
-            {{em?.fio}}
-          </md-option>
-        </md-autocomplete>
+      <div class="row filter_row">
+
+        <div class="col-md-10">
+          <md-input-container class="search div-search-form">
+            <input mdInput placeholder="Подразделение" [mdAutocomplete]="autoDivs" [formControl]="divSearchControl">
+          </md-input-container>
+          <md-autocomplete #autoDivs="mdAutocomplete" [displayWith]="displayDivName" (optionSelected)="divisionSelected()">
+            <md-option *ngFor="let fd of filteredDivisions | async" [value]="fd">
+              {{fd?.name}}
+            </md-option>
+          </md-autocomplete>
+        </div>
+        <div class="col-md-2">
+          <button md-icon-button class="drop_btn" (click)="dropSelectedDiv()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
       </div>
 
-      <div class="row">
-        <md-slide-toggle 
-          [checked]="onlyActive"
-          [disabled]="disabled">Только активные</md-slide-toggle>
+      <div class="row filter_row">
+        <div class="col-md-10">
+          <md-input-container class="search emp-search-form">
+            <input mdInput placeholder="Сотрудник" [mdAutocomplete]="autoEmpls" [formControl]="employeeSearchControl">
+          </md-input-container>
+          <md-autocomplete #autoEmpls="mdAutocomplete" [displayWith]="displayEmpName" (optionSelected)="employeeSelected()">
+            <md-option *ngFor="let em of filteredEmployees | async" [value]="em">
+              {{em?.fio}}
+            </md-option>
+          </md-autocomplete>
+        </div>
+        <div class="col-md-2">
+          <button md-icon-button class="drop_btn" (click)="dropSelectedEmp()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
       </div>
 
-      <div class="row">
-        <md-input-container class="search div-search-form">
-          <input mdInput placeholder="Подразделение" [mdAutocomplete]="autoDivs" [formControl]="divSearchControl">
-        </md-input-container>
-        <md-autocomplete #autoDivs="mdAutocomplete" [displayWith]="displayDivName">
-          <md-option *ngFor="let fd of filteredDivisions | async" [value]="fd">
-            {{fd?.name}}
-          </md-option>
-        </md-autocomplete>
+      <div class="row filter_row" style="margin-left:0; margin-right: 0;">
+          <md-checkbox [checked]="onlyActive" (change)="activeChanged()">Только активные</md-checkbox>
       </div>
     </div>
 

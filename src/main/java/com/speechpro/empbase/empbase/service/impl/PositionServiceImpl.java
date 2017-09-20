@@ -38,4 +38,9 @@ public class PositionServiceImpl implements PositionService{
     public void delete(Position position) {
         positionRepository.delete(position);
     }
+
+    @Override
+    public Position getByName(String positionName) {
+        return positionRepository.findOneByPosition(positionName);
+    }
 }
