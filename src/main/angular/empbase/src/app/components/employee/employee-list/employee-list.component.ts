@@ -31,6 +31,7 @@ export class EmployeeListComponent implements OnInit {
   filteredEmployees: any;
   disabled:false;
   onlyActive:true;
+  rendered:Employee[] = [];
 
   mode = "Indeterminate";
   inProgress = false;
@@ -58,10 +59,12 @@ export class EmployeeListComponent implements OnInit {
       this.ds.getAllEmployeesByDivision(199).subscribe((data) => {
         this.mode = "Query";
         this.employees = data.json() as Employee[];
+        this.fillRendered();
 
         this.filteredDivisions = this.divSearchControl.valueChanges
             .startWith(null)
             .map(name => this.filterDivs(name));
+
         this.filteredEmployees = this.employeeSearchControl.valueChanges
             .startWith(null)
             .map(name => this.filterEmpls(name));
@@ -99,4 +102,8 @@ export class EmployeeListComponent implements OnInit {
     if(div) return div.name;
   }
 
+  fillRendered(){
+    this.rendered = this.rendered.concat(this.employees.slice(this.rendered.length, this.rendered.length + 5))
+  }
+  
 }

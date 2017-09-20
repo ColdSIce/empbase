@@ -48,8 +48,8 @@
 
   </div>
   <div class="col-md-9 masonry_cont">
-    <masonry class="msnr" [useImagesLoaded]="true" [options]="{ resize: false, fitWidth: true, initLayout: true, percentPosition: false, gutter: 10, horizontalOrder: true }">
-      <masonry-brick class="brick" *ngFor="let emp of employees">
+    <masonry  class="msnr" [useImagesLoaded]="true" [options]="{ resize: false, fitWidth: true, initLayout: true, percentPosition: false, gutter: 10, horizontalOrder: true }">
+      <masonry-brick class="brick" *ngFor="let emp of rendered">
         <app-employee *ngIf="emp" [employee]="emp" class="emp_card"></app-employee>
       </masonry-brick>
     </masonry>

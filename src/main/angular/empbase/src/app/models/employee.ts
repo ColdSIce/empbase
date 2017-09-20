@@ -12,7 +12,7 @@ export class Employee{
         public divisionId:number,
         public skills:Skill[],
         public contacts:Contact[],
-        public image:Image,
+        public imageId:number,
         public fio:string,
         public fioEng:string,
         public gender:string,
