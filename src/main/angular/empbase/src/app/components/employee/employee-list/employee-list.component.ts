@@ -56,7 +56,7 @@ export class EmployeeListComponent implements OnInit {
       this.mode = "Query";
       this.divisions = data.json() as Division[];
 
-      this.ds.getAllEmployeesByDivision(199).subscribe((data) => {
+      this.ds.getAllEmployeesByDivision(85).subscribe((data) => {
         this.mode = "Query";
         this.employees = data.json() as Employee[];
         this.fillRendered();

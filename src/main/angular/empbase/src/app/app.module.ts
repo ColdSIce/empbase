@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { HttpModule }    from '@angular/http';
 import { MasonryModule } from 'angular2-masonry';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { ApplicationService } from './services/application.service';
 import { ContactService } from './services/contact.service';
@@ -161,7 +162,8 @@ import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
     MdProgressBarModule,
     HttpModule,
     ToasterModule,
-    RoutingModule
+    RoutingModule,
+    InfiniteScrollModule
   ],
   providers: [
     ApplicationService,
