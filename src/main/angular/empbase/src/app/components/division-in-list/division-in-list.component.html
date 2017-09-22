@@ -11,6 +11,6 @@
       </md-panel-description>
     </md-expansion-panel-header>
     <p *ngIf="division?.head" [ngStyle]="{'margin-left.px':innerMargin}">Руководитель: {{division?.head.fio}}</p>
-    <p *ngIf="division?.head" [ngStyle]="{'margin-left.px':innerMargin}">Email: {{division?.email}}</p>
+    <p *ngIf="division?.email" [ngStyle]="{'margin-left.px':innerMargin}">Email: {{division?.email}}</p>
   </md-expansion-panel>
   <app-division-in-list *ngFor="let div of division?.divisions" [division]="div" [margin]="innerMargin"></app-division-in-list>

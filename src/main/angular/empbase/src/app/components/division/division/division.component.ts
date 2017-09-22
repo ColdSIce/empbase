@@ -33,7 +33,7 @@ export class DivisionComponent implements OnInit {
         this.ds.getDivision(params['key']).subscribe(resp => {
           this.division = resp.json() as Division;
 
-          if(this.division.id) this.ds.getDivision(this.division.id).subscribe(resp => {
+          if(this.division.id) this.ds.getDivision(this.division.rootDivisionId).subscribe(resp => {
             this.rootDivision = resp.json() as Division;
             this.mode = "Indeterminate";
             this.inProgress = false;

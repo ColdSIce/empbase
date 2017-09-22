@@ -65,6 +65,7 @@ public class Employee {
     private Long imageId;
 
     @OneToMany(mappedBy="employee")
+    @OrderBy("contactType")
     private Set<Contact> contacts;
 
     @Column(length = 128)

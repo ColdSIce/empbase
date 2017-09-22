@@ -193,7 +193,7 @@ public class MigrationServiceImpl implements MigrationService{
             Arrays.stream(responseEntity.getBody())
                     .filter(SkillMigration::isGroup)
                     .forEach(sm -> {
-                        Long oldId = sm.getId();
+                        Long oldId = sm.getGroupId();
                         SkillGroup saved = skillGroupRepository.save(sm.toSkillGroup());
                         sgMapping.put(oldId, saved);
                     });

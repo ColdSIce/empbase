@@ -1,15 +1,19 @@
 <md-card class="example-card">
-  <md-card-header>
-    <!--div md-card-avatar class="example-header-image"></div-->
+  <md-card-header class="card_header">
+    <!--div md-card-avatar [ngStyle]="{'background-image': 'url(/api/image/' + employee?.imageId + '/source)' }" class="example-header-image"></div-->
     <md-card-title>{{employee?.fio}}</md-card-title>
     <md-card-subtitle>{{employee?.position?.position}}</md-card-subtitle>
   </md-card-header>
-  <img class="employee_photo" *ngIf="!employee?.imageId" md-card-image src="../../assets/images.jpg" alt="{{employee?.fio}}">
-  <img class="employee_photo" *ngIf="employee?.imageId" md-card-image src="/api/image/{{employee?.imageId}}/source" alt="{{employee?.fio}}">
-  <md-card-content>
-    <p *ngFor="let cont of employee?.contacts">
-      <span *ngIf="!itIsEmail(cont.value)">{{cont?.contactType?.name}}: <span style="color: #555;">{{cont?.value}}</span></span>
-      <span *ngIf="itIsEmail(cont.value)">{{cont?.contactType?.name}}: <a style="color: #555;" href="mailto:{{cont.value}}">{{cont?.value}}</a></span>
-    </p>
+  <md-card-content *ngIf="employee?.imageId" class="employee_photo_container" [ngStyle]="{'background-image': 'url(/api/image/' + employee?.imageId + '/source)' }">
+  </md-card-content>
+  <md-card-content *ngIf="!employee?.imageId" class="employee_photo_container" [ngStyle]="{'background-image': 'url(../../assets/user.png)' }">
+  </md-card-content>
+  <md-card-content class="contacts-container">
+    <div class="contacts">
+      <p *ngFor="let cont of employee?.contacts">
+        <span *ngIf="!itIsEmail(cont.value)">{{cont?.contactType?.name}}: <span style="color: #555;">{{cont?.value}}</span></span>
+        <span *ngIf="itIsEmail(cont.value)">{{cont?.contactType?.name}}: <a style="color: #555;" href="mailto:{{cont.value}}">{{cont?.value}}</a></span>
+      </p>
+    </div>
   </md-card-content>
 </md-card>

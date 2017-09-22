@@ -15,8 +15,7 @@ import { DivisionInListComponent } from '../../division-in-list/division-in-list
 })
 export class DivisionListComponent implements OnInit {
 
-  mode = "Indeterminate";
-  inProgress = false;
+  inProgress = true;
   division:Division;
   rootId:number = 85;
 
@@ -28,13 +27,10 @@ export class DivisionListComponent implements OnInit {
 
   ngOnInit() {
     this.ds.getTreeByRoot(this.rootId).subscribe((data) => {
-      this.mode = "Query";
       this.division = data.json() as Division;
-      console.log(this.division);
     },(error) => {
       this.ts.pop('error', 'Ошибка', error);
     });
-    this.mode = "Indeterminate";
     this.inProgress = false;
   }
 

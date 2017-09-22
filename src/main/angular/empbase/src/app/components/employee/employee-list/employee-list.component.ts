@@ -36,7 +36,7 @@ export class EmployeeListComponent implements OnInit {
   stc:Division;
 
   mode = "Indeterminate";
-  inProgress = false;
+  inProgress = true;
   
 
   constructor(
@@ -87,6 +87,7 @@ export class EmployeeListComponent implements OnInit {
       this.inProgress = false;
     },(error) => {
       this.ts.pop('error', 'Ошибка', error);
+      this.inProgress = false;
     });
   }
 
