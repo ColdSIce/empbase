@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { EmployeeListComponent } from '../../components/employee/employee-list/employee-list.component';
 import { EmployeeComponent } from '../../components/employee/employee/employee.component';
+import { EmployeeDetailsComponent } from '../../components/employee/employee-details/employee-details.component';
 import { EmployeeEditComponent } from '../../components/employee/employee-edit/employee-edit.component';
 import { EmployeeCreateComponent } from '../../components/employee/employee-create/employee-create.component';
 
@@ -45,7 +46,7 @@ import { AdminComponent } from '../../components/admin/admin.component';
 const routes: Routes = [
   { path: '', redirectTo: '/employee', pathMatch:'full' },
   { path: 'employee',  component: EmployeeListComponent },
-  { path: 'employee/view/:key', component: EmployeeComponent },
+  { path: 'employee/view/:key', component: EmployeeDetailsComponent },
   { path: 'employee/edit/:key', component: EmployeeEditComponent },
   { path: 'employee/create', component: EmployeeCreateComponent },
   { path: 'division',  component: DivisionListComponent },

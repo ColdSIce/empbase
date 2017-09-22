@@ -54,7 +54,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ds.getAllDivisions().subscribe((data) => {
+    this.ds.getFlatByRoot(85).subscribe((data) => {
       this.divisions = data.json() as Division[];
 
       this.selectedDiv = this.divisions.find(d => d.name === "ЦРТ");
@@ -140,9 +140,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   dropSelectedDiv(){
-    this.divSearchControl.setValue(this.stc);
-    this.selectedDiv = this.stc;
-    this.loadEmployees(this.selectedDiv == null ? 85 : this.selectedDiv.id, this.onlyActive);
+    this.divSearchControl.setValue('');
   }
 
   dropSelectedEmp(){

@@ -36,6 +36,13 @@ public class DivisionController {
         return new ResponseEntity<Division>(divisionService.getTreeByRoot(division), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/division/{id}/flat", method = RequestMethod.GET)
+    ResponseEntity<List<Division>> getFlatByRoot(@PathVariable Long id){
+        Division division = divisionService.getById(id);
+        if(division == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<List<Division>>(divisionService.getFlatByRoot(division), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/division/{id}/employee/all", method = RequestMethod.GET)
     ResponseEntity<List<Employee>> getAll(
             @PathVariable Long id,

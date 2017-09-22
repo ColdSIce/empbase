@@ -46,6 +46,18 @@ public class DivisionServiceImpl implements DivisionService {
     }
 
     @Override
+    public List<Division> getFlatByRoot(Division division) {
+        List<Division> divisions = new ArrayList<>();
+        fillFlatRecur(division, divisions);
+        return divisions;
+    }
+
+    private void fillFlatRecur(Division division, List<Division> divisions){
+        divisions.add(division);
+        getAllByParent(division).forEach(d -> fillFlatRecur(d, divisions));
+    }
+
+    @Override
     public List<Employee> getEmployeesByDivision(Division division) {
         return employeeService.getByDivision(division);
     }

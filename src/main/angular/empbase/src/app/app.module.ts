@@ -83,6 +83,7 @@ import { DivisionInListComponent } from './components/division-in-list/division-
 import { EmployeeByDivisionPipe } from './pipes/employee-by-division.pipe';
 import { EmployeeByFioPipe } from './pipes/employee-by-fio.pipe';
 import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
+import { EmployeeDetailsComponent } from './components/employee/employee-details/employee-details.component';
 
 
 @NgModule({
@@ -133,7 +134,8 @@ import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
     DivisionInListComponent,
     EmployeeByDivisionPipe,
     EmployeeByFioPipe,
-    AlphabeticalPipe
+    AlphabeticalPipe,
+    EmployeeDetailsComponent
   ],
   imports: [
     BrowserModule,

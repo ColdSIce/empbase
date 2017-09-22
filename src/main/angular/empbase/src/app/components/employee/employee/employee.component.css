@@ -5,7 +5,7 @@
 }
 
 .card_header{
-    height: 90px;
+    height: 110px;
 }
 
 .example-header-image{
@@ -47,4 +47,12 @@
 
 .mat-card:hover{
     box-shadow: 0 10px 8px -9px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 10px 0 rgba(0,0,0,.12);
+}
+
+.to_Employee_btn{
+    transition: all .3s ease;
+}
+
+.to_Employee_btn:hover{
+    color: #ff9800;
 }

@@ -1,0 +1,68 @@
+<md-progress-bar mode="indeterminate" *ngIf="inProgress" color="accent"></md-progress-bar>
+<toaster-container></toaster-container>
+<md-card class="example-card">
+    
+
+  <md-card-content>
+    <div class="row">
+      
+        <div *ngIf="employee?.imageId" 
+          [ngStyle]="{'background-image': 'url(/api/image/' + employee?.imageId + '/source)' }" 
+          class="example-header-image col-lg-2 col-md-3">
+        </div>
+      
+      <div class="col-lg-10 com-md-9">
+        <h4 class="ml">{{employee?.fio}}</h4>
+        <h5 class="ml grey">{{employee?.position?.position}}</h5>
+        <h5 class="ml grey">{{division?.name}}</h5>
+        <h5 class="ml grey" *ngIf="employee?.active">
+          Активный
+          <md-icon color="accent" title="Активный">check_circle</md-icon>
+        </h5>
+        
+         <md-list>
+          <h3 *ngIf="employee?.organization" md-subheader>Организация</h3>
+          <md-list-item *ngIf="employee?.organization">
+            <md-icon md-list-icon>business</md-icon>
+            <h4 md-line>{{employee?.organization?.name}}</h4>
+          </md-list-item>
+          <md-divider *ngIf="employee?.skills.length || employee?.contacts.length || employee?.location"></md-divider>
+
+          <h3 *ngIf="employee?.location" md-subheader>Рабочее место</h3>
+          <md-list-item *ngIf="employee?.location">
+            <md-icon md-list-icon>home</md-icon>
+            <h4 md-line>{{employee?.location?.office?.name}}</h4>
+            <p md-line>Комната: {{employee?.location?.name}} </p>
+          </md-list-item>
+          <md-divider *ngIf="employee?.skills.length || employee?.contacts.length"></md-divider>
+
+          <h3 *ngIf="employee?.contacts.length" md-subheader>Контакты</h3>
+          <md-list-item *ngFor="let contact of employee?.contacts">
+            <md-icon md-list-icon>perm_contact_calendar</md-icon>
+            <h4 md-line>{{contact?.contactType.name}}</h4>
+            <p *ngIf="!itIsEmail(contact.value)" md-line>{{contact?.value}} </p>
+            <p *ngIf="itIsEmail(contact.value)" md-line>
+              <a style="color: #333;" href="mailto:{{contact?.value}}">{{contact?.value}}</a> 
+            </p>
+          </md-list-item>
+          <md-divider *ngIf="employee?.skills.length"></md-divider>
+
+          <h3 *ngIf="employee?.skills?.length" md-subheader>Скилы</h3>
+          <md-list-item *ngFor="let skill of employee?.skills">
+            <md-icon md-list-icon>fiber_manual_record</md-icon>
+            <h4 md-line>{{skill?.name}}</h4>
+            <p md-line>{{skill?.skillGroup.name}} </p>
+          </md-list-item>
+          
+        </md-list>
+      </div>
+    </div>
+   
+   
+  </md-card-content>
+  <md-card-actions>
+    <button md-button (click)="edit(employee?.id)">Редактировать</button>
+    <button md-button type="button" (click)="delete(employee?.id)">Удалить</button>
+    <button md-button type="button" (click)="toEmployees()">К списку</button>
+  </md-card-actions>
+</md-card>

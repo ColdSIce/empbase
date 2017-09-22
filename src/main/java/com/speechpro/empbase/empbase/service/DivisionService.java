@@ -20,4 +20,6 @@ public interface DivisionService {
     Division create(Division division);
     Division update(Division division);
     void delete(Division division);
+
+    List<Division> getFlatByRoot(Division division);
 }

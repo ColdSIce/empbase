@@ -18,7 +18,9 @@ export class EmployeeComponent implements OnInit {
   @Input('employee') employee:Employee;
   patt:RegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 
-  constructor(private is:ImageService) { }
+  constructor(
+    private router: Router,
+    private is:ImageService) { }
 
   ngOnInit() {
   }
@@ -29,5 +31,9 @@ export class EmployeeComponent implements OnInit {
 
   getImage(id:number){
     if(id) return this.is.getImageSource(id);
+  }
+
+  toEmployee(id:number){
+    if(id) this.router.navigate(['/employee/view/' + id]);
   }
 }

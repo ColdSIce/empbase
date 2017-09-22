@@ -1,0 +1,16 @@
+.example-header-image{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 0%;
+    border-radius: 0px;
+    height: 300px;
+}
+
+.ml{
+    margin-left: 16px;
+}
+
+.grey{
+    opacity: .5;
+}

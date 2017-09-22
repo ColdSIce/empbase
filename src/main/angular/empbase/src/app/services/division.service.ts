@@ -11,6 +11,10 @@ export class DivisionService{
         return this.http.get('/api/division/' + id + '/tree');
     }
 
+    getFlatByRoot(id:number){
+        return this.http.get('/api/division/' + id + '/flat');
+    }
+
     getDivision(id:number){
         return this.http.get('/api/division/' + id);
     }
