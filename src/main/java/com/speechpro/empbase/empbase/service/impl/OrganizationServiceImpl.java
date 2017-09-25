@@ -38,4 +38,9 @@ public class OrganizationServiceImpl implements OrganizationService{
     public void delete(Organization organization) {
         organizationRepository.delete(organization);
     }
+
+    @Override
+    public Organization getByName(String orgName) {
+        return organizationRepository.findOneByName(orgName);
+    }
 }

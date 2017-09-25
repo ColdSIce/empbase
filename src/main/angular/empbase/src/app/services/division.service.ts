@@ -11,8 +11,8 @@ export class DivisionService{
         return this.http.get('/api/division/' + id + '/tree');
     }
 
-    getFlatByRoot(id:number){
-        return this.http.get('/api/division/' + id + '/flat');
+    getFlatByRoot(){
+        return this.http.get('/api/division/85/flat');
     }
 
     getDivision(id:number){
@@ -39,15 +39,17 @@ export class DivisionService{
         if(id) return this.http.delete('/api/division/' + id);
     }
 
-    getAllEmployeesByDivision(divId:number, active?:boolean, employee?:string, location?:string, office?:string, position?:string){
-        let anyParam:boolean = active != null || employee != null || location != null || office != null || position != null;
-        let url = '/api/division/' + divId + '/employee/all';
+    getAllEmployeesByDivision(divId?:number, active?:boolean, employeeId?:number, organizationId?:number, locationId?:number, officeId?:number, positionId?:number){
+        let anyParam:boolean = active != null || employeeId != null || organizationId != null || locationId != null || officeId != null || positionId != null;
+        let url = '/api/division/employee/all';
         if(anyParam) url += '?';
         if(active != null) url += 'active=' + active;
-        if(employee != null) url += '&employee=' + employee;
-        if(location != null) url += '&location=' + location;
-        if(office != null) url += '&office=' + office;
-        if(position != null) url += '&position=' + position;
+        if(employeeId != null) url += '&employeeId=' + employeeId;
+        if(divId != null) url += '&divisionId=' + divId;
+        if(organizationId != null) url += '&organizationId=' + organizationId;
+        if(locationId != null) url += '&locationId=' + locationId;
+        if(officeId != null) url += '&officeId=' + officeId;
+        if(positionId != null) url += '&positionId=' + positionId;
         return this.http.get(url);
     }
 

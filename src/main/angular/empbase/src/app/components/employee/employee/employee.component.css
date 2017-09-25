@@ -51,6 +51,8 @@
 
 .to_Employee_btn{
     transition: all .3s ease;
+    position: absolute;
+    right: 10px;
 }
 
 .to_Employee_btn:hover{

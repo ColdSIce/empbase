@@ -9,7 +9,7 @@
   </md-card-header>
   <md-card-content *ngIf="employee?.imageId" class="employee_photo_container" [ngStyle]="{'background-image': 'url(/api/image/' + employee?.imageId + '/source)' }">
   </md-card-content>
-  <md-card-content *ngIf="!employee?.imageId" class="employee_photo_container" [ngStyle]="{'background-image': 'url(../../assets/user.png)' }">
+  <md-card-content *ngIf="!employee?.imageId" class="employee_photo_container" [ngStyle]="{'background-image': 'url(../../assets/user.png)', 'opacity': '0.1' }">
   </md-card-content>
   <md-card-content class="contacts-container">
     <div class="contacts">

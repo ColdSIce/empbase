@@ -1,6 +1,7 @@
 package com.speechpro.empbase.empbase.controller.rest;
 
 import com.speechpro.empbase.empbase.model.entities.Employee;
+import com.speechpro.empbase.empbase.service.ContactService;
 import com.speechpro.empbase.empbase.service.DivisionService;
 import com.speechpro.empbase.empbase.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class EmployeeController {
 
     @Autowired
     private DivisionService divisionService;
+
+    @Autowired
+    private ContactService contactService;
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)
     List<Employee> getAll(){
@@ -49,6 +53,7 @@ public class EmployeeController {
     ResponseEntity<Employee> delete(@PathVariable Long id){
         Employee employee = employeeService.getById(id);
         if(employee != null){
+            employee.getContacts().forEach(c -> contactService.delete(c));
             employeeService.delete(employee);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);//204
         } else {

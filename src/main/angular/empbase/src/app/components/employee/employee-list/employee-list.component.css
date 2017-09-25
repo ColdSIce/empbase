@@ -16,7 +16,8 @@
 }
 
 .div-search-form,
-.emp-search-form {
+.emp-search-form,
+.org-search-form {
   width: 100%;
 }
 
@@ -64,7 +65,10 @@
         width: 25% !important;
     }
 }
-
+.prgrs{
+    position: absolute;
+    z-index: 10;
+}
 
 
 

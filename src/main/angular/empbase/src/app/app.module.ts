@@ -10,6 +10,7 @@ import { MdButtonModule,
   MdProgressBarModule,
   MdCardModule,
   MdSlideToggleModule,
+  MdRadioModule,
   MdSelectionList,
   MdListOption,
   MdExpansionModule,
@@ -20,7 +21,7 @@ import { MdButtonModule,
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RoutingModule } from './modules/routing/routing.module';
 import { RouterModule, Routes } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import { HttpModule }    from '@angular/http';
 
@@ -151,9 +152,11 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     MdIconModule,
     MdSelectModule,
     MdSlideToggleModule,
+    FormsModule,
     MdListModule,
     MdAutocompleteModule,
     ReactiveFormsModule,
+    MdRadioModule,
     MdCardModule,
     MdTooltipModule,
     MdInputModule,
@@ -185,7 +188,9 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     MdTooltipModule,
     MdAutocompleteModule,
     MdSlideToggleModule,
+    MdRadioModule,
     MdExpansionModule,
+    FormsModule,
     MdInputModule,
     MdMenuModule,
     MdSelectModule,

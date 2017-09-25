@@ -1,4 +1,4 @@
-<md-progress-bar mode="indeterminate" *ngIf="inProgress" color="accent"></md-progress-bar>
+<md-progress-bar mode="indeterminate" *ngIf="inProgress" color="accent" class="prgrs"></md-progress-bar>
 <toaster-container></toaster-container>
 <div class="add_btn">
   <button md-fab color="accent" (click)="create()">
@@ -31,7 +31,7 @@
           </md-autocomplete>
         </div>
         <div class="col-md-2">
-          <button md-icon-button class="drop_btn" (click)="dropSelectedDiv()">
+          <button *ngIf="filters.divisionId" md-icon-button class="drop_btn" (click)="dropSelectedDiv()">
             <md-icon>close</md-icon>
           </button>
         </div>
@@ -49,14 +49,86 @@
           </md-autocomplete>
         </div>
         <div class="col-md-2">
-          <button md-icon-button class="drop_btn" (click)="dropSelectedEmp()">
+          <button *ngIf="filters.employeeId" md-icon-button class="drop_btn" (click)="dropSelectedEmp()">
             <md-icon>close</md-icon>
           </button>
         </div>
       </div>
 
       <div class="row filter_row" style="margin-left:0; margin-right: 0;">
-          <md-checkbox [checked]="onlyActive" (change)="activeChanged()">Только активные</md-checkbox>
+          <md-checkbox [checked]="filters.active" (change)="activeChanged()">Только активные</md-checkbox>
+      </div>
+
+      <div class="row filter_row">
+        <div class="col-md-10">
+          <md-input-container class="search org-search-form">
+            <input mdInput placeholder="Должность" [mdAutocomplete]="autoPos" [formControl]="PosFormControl">
+          </md-input-container>
+          <md-autocomplete #autoPos="mdAutocomplete" [displayWith]="displayPosName" (optionSelected)="posSelected()">
+            <md-option *ngFor="let position of filteredPositions | async" [value]="position">
+              {{position?.position}}
+            </md-option>
+          </md-autocomplete>
+        </div>
+        <div class="col-md-2">
+          <button  *ngIf="filters.positionId" md-icon-button class="drop_btn" (click)="dropSelectedPos()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="row filter_row">
+        <div class="col-md-10">
+          <md-input-container class="search org-search-form">
+            <input mdInput placeholder="Организация" [mdAutocomplete]="autoOrgs" [formControl]="OrgFormControl">
+          </md-input-container>
+          <md-autocomplete #autoOrgs="mdAutocomplete" [displayWith]="displayOrgName" (optionSelected)="orgSelected()">
+            <md-option *ngFor="let org of filteredOrgs | async" [value]="org">
+              {{org?.name}}
+            </md-option>
+          </md-autocomplete>
+        </div>
+        <div class="col-md-2">
+          <button  *ngIf="filters.organizationId" md-icon-button class="drop_btn" (click)="dropSelectedOrg()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="row filter_row">
+        <div class="col-md-10">
+          <md-input-container class="search org-search-form">
+            <input mdInput placeholder="Офис" [mdAutocomplete]="autoOffice" [formControl]="OfficeFormControl">
+          </md-input-container>
+          <md-autocomplete #autoOffice="mdAutocomplete" [displayWith]="displayOfficeName" (optionSelected)="officeSelected()">
+            <md-option *ngFor="let office of filteredOffices | async" [value]="office">
+              {{office?.name}}
+            </md-option>
+          </md-autocomplete>
+        </div>
+        <div class="col-md-2">
+          <button  *ngIf="filters.officeId" md-icon-button class="drop_btn" (click)="dropSelectedOffice()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="row filter_row">
+        <div class="col-md-10">
+          <md-input-container class="search org-search-form">
+            <input mdInput placeholder="Комната" [mdAutocomplete]="autoLoca" [formControl]="locaFormControl">
+          </md-input-container>
+          <md-autocomplete #autoLoca="mdAutocomplete" [displayWith]="displayLocaName" (optionSelected)="locaSelected()">
+            <md-option *ngFor="let loca of filteredLocations | async" [value]="loca">
+              {{loca?.name}}
+            </md-option>
+          </md-autocomplete>
+        </div>
+        <div class="col-md-2">
+          <button  *ngIf="filters.locationId" md-icon-button class="drop_btn" (click)="dropSelectedLocation()">
+            <md-icon>close</md-icon>
+          </button>
+        </div>
       </div>
     </div>
 

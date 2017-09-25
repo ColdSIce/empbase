@@ -12,4 +12,6 @@ public interface OrganizationService {
     Organization create(Organization organization);
     Organization update(Organization organization);
     void delete(Organization organization);
+
+    Organization getByName(String orgName);
 }

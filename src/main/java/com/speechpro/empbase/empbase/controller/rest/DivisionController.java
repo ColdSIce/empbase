@@ -1,10 +1,7 @@
 package com.speechpro.empbase.empbase.controller.rest;
 
 import com.speechpro.empbase.empbase.model.entities.*;
-import com.speechpro.empbase.empbase.service.DivisionService;
-import com.speechpro.empbase.empbase.service.LocationService;
-import com.speechpro.empbase.empbase.service.OfficeService;
-import com.speechpro.empbase.empbase.service.PositionService;
+import com.speechpro.empbase.empbase.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,6 +27,12 @@ public class DivisionController {
     @Autowired
     private PositionService positionService;
 
+    @Autowired
+    private OrganizationService organizationService;
+
+    @Autowired
+    private EmployeeService employeeService;
+
     @RequestMapping(value = "/division/{id}/tree", method = RequestMethod.GET)
     ResponseEntity<Division> getTreeByRoot(@PathVariable Long id){
         Division division = divisionService.getById(id);
@@ -43,34 +47,49 @@ public class DivisionController {
         return new ResponseEntity<List<Division>>(divisionService.getFlatByRoot(division), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/division/{id}/employee/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/division/employee/all", method = RequestMethod.GET)
     ResponseEntity<List<Employee>> getAll(
-            @PathVariable Long id,
             @RequestParam(name = "active", required = false) Boolean active,
-            @RequestParam(name = "location", required = false) String locationName,
-            @RequestParam(name = "office", required = false) String officeName,
-            @RequestParam(name = "position", required = false) String positionName,
-            @RequestParam(name = "employee", required = false) String uname,
-            @RequestParam(name = "skills", required = false) List<String> skillNames){
-        Division division = divisionService.getById(id);
-        if(division == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            @RequestParam(name = "locationId", required = false) Long locationId,
+            @RequestParam(name = "divisionId", required = false) Long divisionId,
+            @RequestParam(name = "officeId", required = false) Long officeId,
+            @RequestParam(name = "positionId", required = false) Long positionId,
+            @RequestParam(name = "employeeId", required = false) Long empId,
+            @RequestParam(name = "organizationId", required = false) Long orgId,
+            @RequestParam(name = "skills", required = false) List<Long> skillIds){
+
+
 
         final Location location;
-        if(locationName != null) location = locationService.getByName(locationName);
+        if(locationId != null) location = locationService.getById(locationId);
         else location = null;
 
         final Office office;
-        if(officeName != null) office = officeService.getByName(officeName);
+        if(officeId != null) office = officeService.getById(officeId);
         else office = null;
 
         final Position position;
-        if(positionName != null) position = positionService.getByName(positionName);
+        if(positionId != null) position = positionService.getById(positionId);
         else position = null;
 
-        List<Employee> employees = divisionService.getEmployeesByDivisionRecursively(division).stream()
-                .filter(e -> active == null || !active || e.isActive() == active)
-                .filter(e -> uname == null || e.getUname().equals(uname))
+        final Organization organization;
+        if(orgId != null) organization = organizationService.getById(orgId);
+        else organization = null;
+
+        List<Employee> unfiltered;
+        if(divisionId == null) unfiltered = employeeService.getAll();
+        else {
+            Division division = divisionService.getById(divisionId);
+            if(division == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            unfiltered = divisionService.getEmployeesByDivisionRecursively(division);
+        }
+
+        List<Employee> employees = unfiltered.stream()
+                .filter(e -> e.getFio() != null && !e.getFio().equals(""))
+                .filter(e -> active == null || e.isActive() == active)
+                .filter(e -> empId == null || e.getId().equals(empId))
                 .filter(e -> location == null || (e.getLocation() != null && e.getLocation().equals(location)))
+                .filter(e -> organization == null || (e.getOrganization() != null && e.getOrganization().equals(organization)))
                 .filter(e -> office == null || (e.getLocation() != null && e.getLocation().getOffice() != null && e.getLocation().getOffice().equals(office)))
                 .filter(e -> position == null || (e.getPosition() != null && e.getPosition().equals(position)))
                 .collect(Collectors.toList());
