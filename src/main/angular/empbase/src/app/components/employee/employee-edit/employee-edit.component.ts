@@ -10,8 +10,10 @@ import { Position } from '../../../models/position';
 import { PositionService } from '../../../services/position.service';
 import { Location } from '../../../models/location';
 import { Office } from '../../../models/office';
+import { Image } from '../../../models/image';
 import { LocationService } from '../../../services/location.service';
 import { OfficeService } from '../../../services/office.service';
+import { ImageService } from '../../../services/image.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
@@ -43,6 +45,7 @@ export class EmployeeEditComponent implements OnInit {
   organizations:Organization[];
   positions:Position[];
   locations:Location[];
+  validFileTypes = ["image/gif", "image/jpeg", "image/png"];
 
   constructor(
     private fb:FormBuilder, 
@@ -53,6 +56,7 @@ export class EmployeeEditComponent implements OnInit {
     private es:EmployeeService,
     private ls:LocationService,
     private ps:PositionService,
+    private is:ImageService,
     private os:OrganizationService,
     dateAdapter: DateAdapter<NativeDateAdapter>) {
       this.createForm();
@@ -60,6 +64,10 @@ export class EmployeeEditComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData(){
     this.ds.getAllDivisions().subscribe(
       (data) => {
         this.divisions = data.json() as Division[];
@@ -179,7 +187,7 @@ export class EmployeeEditComponent implements OnInit {
       this.employee.position = this.employeeForm.value.position;
       this.employee.location = this.employeeForm.value.location;
       this.employee.updated = new Date();
-      
+
       this.es.update(this.employee).subscribe(
         (data) => {
           this.employeeForm.reset();
@@ -195,6 +203,35 @@ export class EmployeeEditComponent implements OnInit {
   cancel(){
     this.employeeForm.reset();
     this.router.navigate(['/employee']);
+  }
+
+  upload(){
+    let input:HTMLInputElement = <HTMLInputElement>document.getElementById("upload");
+    if(input.files[0]){
+      let fileType = input.files[0]['type'];
+      let fileSize = input.files[0].size / 1024;//Kb
+      if(this.validFileTypes.includes(fileType)){
+        if(fileSize < 500){
+          if(this.employee.id) {
+            let formData = new FormData();
+            formData.append('file', input.files[0]);
+            this.is.update(formData, this.employee.id).subscribe(
+              (data) => {
+                this.loadData();
+              },
+              (error) => {
+                this.ts.pop('error', 'Ошибка', error);
+              }
+            );
+          }
+        }else{
+          this.ts.pop('warning', 'Предупреждение', "Превышен максимальный допустимый размер фотографии(500Kb).");
+        }
+      }else{
+        this.ts.pop('warning', 'Предупреждение', "Выможете загружать только фотографии(.jpg, .jpeg, .png, .gif).");
+      }
+    }
+    input.value = null;
   }
 
 }

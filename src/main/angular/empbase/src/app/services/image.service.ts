@@ -16,11 +16,11 @@ export class ImageService{
         return this.http.get('/api/image/' + id + '/source');
     }
 
-    create(image:Image){
-        return this.http.post('/api/image', image);
+    update(file:FormData, empId:number){
+        if(empId) return this.http.post('/api/image/' + empId, file);
     }
 
-    update(image:Image){
+    create(image:Image){
         return this.http.put('/api/image', image);
     }
 

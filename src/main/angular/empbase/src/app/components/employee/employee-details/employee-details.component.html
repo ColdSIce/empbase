@@ -6,10 +6,10 @@
   <md-card-content>
     <div class="row">
       
-        <div *ngIf="employee?.imageId" 
-          [ngStyle]="{'background-image': 'url(/api/image/' + employee?.imageId + '/source)' }" 
-          class="example-header-image col-lg-2 col-md-3">
-        </div>
+      <div *ngIf="employee?.imageId" 
+        [ngStyle]="{'background-image': 'url(/api/image/' + employee?.imageId + '/source)' }" 
+        class="example-header-image col-lg-2 col-md-3">
+      </div>
       
       <div class="col-lg-10 com-md-9">
         <h4 class="ml">{{employee?.fio}}</h4>
