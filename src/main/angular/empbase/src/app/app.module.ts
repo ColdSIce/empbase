@@ -14,7 +14,9 @@ import { MdButtonModule,
   MdSelectionList,
   MdListOption,
   MdExpansionModule,
+  MdNativeDateModule,
   MdTooltipModule,
+  MdDatepickerModule,
   MdMenuModule,
   MdSelectModule,
   MdIconModule } from '@angular/material';
@@ -162,6 +164,8 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     MdInputModule,
     MdMenuModule,
     MdProgressBarModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
     HttpModule,
     ToasterModule,
     RoutingModule
@@ -196,6 +200,8 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     MdSelectModule,
     MdProgressBarModule,
     MdListModule,
+    MdDatepickerModule,
+    MdNativeDateModule,
     MdIconModule
   ],
   bootstrap: [AppComponent]

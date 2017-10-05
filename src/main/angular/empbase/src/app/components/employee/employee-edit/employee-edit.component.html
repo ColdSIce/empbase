@@ -1,3 +1,81 @@
-<p>
-  employee-edit works!
-</p>
+<md-progress-bar mode="indeterminate" *ngIf="inProgress" color="accent" class="prgrs"></md-progress-bar>
+<toaster-container></toaster-container>
+<md-card class="example-card">
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="example-form">
+    <md-card-header>
+      <md-card-title  class="form_title">Редактирование</md-card-title>
+    </md-card-header>
+    <md-card-content>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="ФИО" formControlName="fio">
+        </md-input-container>
+    </md-card-content>
+    <md-card-content>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="ФИО (Eng)" formControlName="fioEng">
+        </md-input-container>
+    </md-card-content>
+    <md-card-content>
+        <md-checkbox [checked]="employeeForm.active" formControlName="active">Активный</md-checkbox>
+    </md-card-content>
+    <md-card-content>
+      <md-select placeholder="Пол" formControlName="gender" name="gender" class="full-width">
+        <md-option *ngFor="let g of genders" [value]="g.value">
+          {{g.name}}
+        </md-option>
+      </md-select>
+    </md-card-content>
+    <md-card-content>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Логин" formControlName="uname">
+        </md-input-container>
+    </md-card-content>
+    <md-card-content>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Табельный номер 1С" formControlName="onesId">
+        </md-input-container>
+    </md-card-content>
+    <md-card-content>
+        <!--md-input-container class="full-width">
+          <input mdInput placeholder="Дата рождения" formControlName="dob">
+        </md-input-container-->
+        <md-form-field>
+          <input mdInput [mdDatepicker]="picker" placeholder="Дата рождения" formControlName="dob">
+          <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+          <md-datepicker #picker></md-datepicker>
+        </md-form-field>
+    </md-card-content>
+    <md-card-content>
+      <md-select placeholder="Организация" formControlName="organization" name="organization" class="full-width">
+        <md-option *ngFor="let org of organizations" [value]="org">
+          {{org.name}}
+        </md-option>
+      </md-select>
+    </md-card-content>
+    <md-card-content>
+      <md-select placeholder="Подразделение" formControlName="div" name="div" class="full-width">
+        <md-option *ngFor="let div of divisions" [value]="div.id">
+          {{div.name}}
+        </md-option>
+      </md-select>
+    </md-card-content>
+    <md-card-content>
+      <md-select placeholder="Должность" formControlName="position" name="position" class="full-width">
+        <md-option *ngFor="let pos of positions" [value]="pos">
+          {{pos.position}}
+        </md-option>
+      </md-select>
+    </md-card-content>
+    <md-card-content>
+      <md-select placeholder="Место работы" formControlName="location" name="location" class="full-width">
+        <md-option *ngFor="let loca of locations" [value]="loca">
+          {{loca.name}} ({{loca.office.name}})
+        </md-option>
+      </md-select>
+    </md-card-content>
+    <md-card-actions>
+      <button [disabled]="employeeForm.pristine" type="submit" md-button>Сохранить</button>
+      <button type="button" (click)="cancel()" md-button>Отмена</button>
+    </md-card-actions>
+  </form> 
+</md-card>
