@@ -22,4 +22,6 @@ public interface DivisionService {
     void delete(Division division);
 
     List<Division> getFlatByRoot(Division division);
+
+    List<Division> getByHead(Employee employee);
 }

@@ -112,4 +112,9 @@ public class DivisionServiceImpl implements DivisionService {
     public void delete(Division division) {
         divisionRepository.delete(division);
     }
+
+    @Override
+    public List<Division> getByHead(Employee employee) {
+        return divisionRepository.findByHead(employee);
+    }
 }
