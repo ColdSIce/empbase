@@ -1,0 +1,32 @@
+<md-progress-bar class="progress" *ngIf="inProgress" color="accent" class="emp_list_progress_bar"></md-progress-bar>
+<toaster-container></toaster-container>
+<div class="row component_head" style="margin-right:0px;">
+  <div class="col-md-4 sg_title">
+    <h4>Подразделения</h4>
+  </div>
+  <div class="col-md-4 skill_title">
+    <h4>Сотрудники</h4>
+  </div>
+  <div class="col-md-4 skill_title">
+    <h4>Рассылка</h4>
+  </div>
+</div>
+<div class="row component_body" style="margin-right:0px;">
+  <div class="col-md-4 sg_col">
+    <md-selection-list #selectedDivisions>
+      <md-list-option *ngFor="let div of divisions" (selectChange)="selectDiv(div)">
+        {{div?.name}}
+      </md-list-option>
+    </md-selection-list>
+  </div>
+  <div class="col-md-4 skill_col">
+    <md-selection-list #selectedEmployees>
+      <md-list-option *ngFor="let emp of employees">
+        {{emp?.fio}}
+      </md-list-option>
+    </md-selection-list>
+  </div>
+  <div class="col-md-4 skill_col">
+    <button md-button>Рассылка</button>
+  </div>
+</div>

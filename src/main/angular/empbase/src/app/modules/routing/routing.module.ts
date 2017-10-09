@@ -42,6 +42,7 @@ import { SkillTypeCreateComponent } from '../../components/skill/skill-type-crea
 import { SkillTypeEditComponent } from '../../components/skill/skill-type-edit/skill-type-edit.component';
 import { SkillsComponent } from '../../components/skill/skills/skills.component';
 import { AdminComponent } from '../../components/admin/admin.component';
+import { MailingListComponent } from '../../components/mailing-list/mailing-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/employee', pathMatch:'full' },
@@ -85,6 +86,7 @@ const routes: Routes = [
   { path: 'skill/create', component: SkillCreateComponent },
   { path: 'skill/createInGroup/:skillId', component: SkillCreateComponent },
   { path: 'skillType/create', component: SkillTypeCreateComponent },
+  { path: 'mailTo', component: MailingListComponent },
   { path: 'admin', component: AdminComponent }
 ];
 

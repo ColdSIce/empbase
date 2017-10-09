@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, Inject } from '@angular/core';
 import { moveIn, fallIn, moveInLeft } from '../../../router.animation';
 import { Division } from '../../../models/division';
 import { DivisionService } from '../../../services/division.service';
@@ -14,10 +14,14 @@ import { Image } from '../../../models/image';
 import { LocationService } from '../../../services/location.service';
 import { OfficeService } from '../../../services/office.service';
 import { ImageService } from '../../../services/image.service';
+import { Contact } from '../../../models/contact';
+import { ContactType } from '../../../models/contactType';
+import { ContactService } from '../../../services/contact.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
 import { DateAdapter, NativeDateAdapter } from '@angular/material';
+import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-employee-edit',
@@ -45,7 +49,9 @@ export class EmployeeEditComponent implements OnInit {
   organizations:Organization[];
   positions:Position[];
   locations:Location[];
+  cts:ContactType[];
   validFileTypes = ["image/gif", "image/jpeg", "image/png"];
+  selectedCT:ContactType;
 
   constructor(
     private fb:FormBuilder, 
@@ -53,11 +59,13 @@ export class EmployeeEditComponent implements OnInit {
     private ts:ToasterService,
     private route:ActivatedRoute,
     private ds:DivisionService,
+    public contactDialog: MdDialog,
     private es:EmployeeService,
     private ls:LocationService,
     private ps:PositionService,
     private is:ImageService,
     private os:OrganizationService,
+    private cs:ContactService,
     dateAdapter: DateAdapter<NativeDateAdapter>) {
       this.createForm();
       dateAdapter.setLocale('ru-RU');
@@ -68,7 +76,13 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   loadData(){
-    this.ds.getAllDivisions().subscribe(
+    this.cs.getAllContactTypes().subscribe((data) => {
+      this.cts = data.json() as ContactType[];
+    },(error) => {
+      this.ts.pop('error', 'Ошибка', error);
+    });
+
+    this.ds.getFlatByRoot().subscribe(
       (data) => {
         this.divisions = data.json() as Division[];
 
@@ -232,6 +246,46 @@ export class EmployeeEditComponent implements OnInit {
       }
     }
     input.value = null;
+  }
+
+  openContactDialog(){
+    const dialogRef = this.contactDialog.open(ContactDialog, {
+      height: '350px',
+      width: '500px',
+      data: {
+        cts: this.cts
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'contact-dialog',
+  templateUrl: 'contact-dialog.html',
+})
+export class ContactDialog {
+  constructor(
+    public dialogRef: MdDialogRef<ContactDialog>,
+    @Inject(MD_DIALOG_DATA) public data: any
+  ) { }
+
+  model = {
+    ct:null,
+    value:null
+  }
+
+  close(): void {
+    this.dialogRef.close(this.model);
+  }
+
+  save(): void {
+    this.dialogRef.close();
   }
 
 }

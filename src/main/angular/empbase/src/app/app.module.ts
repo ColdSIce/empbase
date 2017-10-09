@@ -9,6 +9,7 @@ import { MdButtonModule,
   MdInputModule,
   MdProgressBarModule,
   MdCardModule,
+  MdDialogModule,
   MdSlideToggleModule,
   MdRadioModule,
   MdSelectionList,
@@ -42,7 +43,7 @@ import { SkillService } from './services/skill.service';
 import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 import { EmployeeComponent } from './components/employee/employee/employee.component';
-import { EmployeeEditComponent } from './components/employee/employee-edit/employee-edit.component';
+import { EmployeeEditComponent, ContactDialog } from './components/employee/employee-edit/employee-edit.component';
 import { EmployeeCreateComponent } from './components/employee/employee-create/employee-create.component';
 import { ContactTypeComponent } from './components/contact/contact-type/contact-type.component';
 import { ContactTypeListComponent } from './components/contact/contact-type-list/contact-type-list.component';
@@ -87,6 +88,8 @@ import { EmployeeByDivisionPipe } from './pipes/employee-by-division.pipe';
 import { EmployeeByFioPipe } from './pipes/employee-by-fio.pipe';
 import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
 import { EmployeeDetailsComponent } from './components/employee/employee-details/employee-details.component';
+import { MailingListComponent } from './components/mailing-list/mailing-list.component';
+import { InSelectedDivsPipe } from './pipes/in-selected-divs.pipe';
 
 
 @NgModule({
@@ -95,6 +98,7 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     EmployeeListComponent,
     EmployeeComponent,
     EmployeeEditComponent,
+    ContactDialog,
     EmployeeCreateComponent,
     ContactTypeComponent,
     ContactTypeListComponent,
@@ -138,7 +142,9 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     EmployeeByDivisionPipe,
     EmployeeByFioPipe,
     AlphabeticalPipe,
-    EmployeeDetailsComponent
+    EmployeeDetailsComponent,
+    MailingListComponent,
+    InSelectedDivsPipe
   ],
   imports: [
     BrowserModule,
@@ -151,6 +157,7 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     MdGridListModule,
     MdToolbarModule,
     MdExpansionModule,
+    MdDialogModule,
     MdIconModule,
     MdSelectModule,
     MdSlideToggleModule,
@@ -194,6 +201,7 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     MdSlideToggleModule,
     MdRadioModule,
     MdExpansionModule,
+    MdDialogModule,
     FormsModule,
     MdInputModule,
     MdMenuModule,
@@ -203,6 +211,9 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
     MdDatepickerModule,
     MdNativeDateModule,
     MdIconModule
+  ],
+  entryComponents: [
+    ContactDialog
   ],
   bootstrap: [AppComponent]
 })

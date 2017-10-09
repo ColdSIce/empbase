@@ -28,7 +28,7 @@
 
       </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-5">
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="example-form">
         <md-card-header>
           <md-card-title  class="form_title">Редактирование</md-card-title>
@@ -103,6 +103,11 @@
           <button type="button" (click)="cancel()" md-button>Отмена</button>
         </md-card-actions>
       </form> 
+    </div>
+    <div class="col-md-4">
+      <md-card-content>
+          <button md-button (click)="openContactDialog()">Добавить контакт</button>
+      </md-card-content>
     </div>
   </div>
 </md-card>

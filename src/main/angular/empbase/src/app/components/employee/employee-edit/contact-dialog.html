@@ -1,0 +1,12 @@
+<md-card>
+    <md-card-content>
+        <md-select placeholder="Тип контакта" style="width: 100%;" [(ngModel)]="model.ct">
+        <md-option *ngFor="let ct of data.cts" [value]="ct">
+            {{ct.name}}
+        </md-option>
+        </md-select>
+    </md-card-content>
+    <md-card-actions>
+        <button md-button (click)="close()">Закрыть</button>
+    </md-card-actions>
+</md-card>
