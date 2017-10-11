@@ -32,20 +32,34 @@ public class ContactController {
         return contactService.getById(id);
     }
 
-    @RequestMapping(value = "/contact", method = RequestMethod.POST)
-    Contact createContact(@RequestBody Contact contact){
-        return contactService.create(contact);
+    @RequestMapping(value = "/contact/{empId}", method = RequestMethod.POST)
+    Contact createContact(@PathVariable Long empId,
+                          @RequestBody Contact contact){
+        Employee employee = employeeService.getById(empId);
+        contact.setEmployee(employee);
+        Contact cont =  contactService.create(contact);
+        if(!employee.getContacts().contains(cont)){
+            employee.getContacts().add(cont);
+            employeeService.update(employee);
+        }
+        return cont;
     }
 
     @RequestMapping(value = "/contact", method = RequestMethod.PUT)
     Contact updateContact(@RequestBody Contact contact){
-        return contactService.update(contact);
+        Contact cont = contactService.getById(contact.getId());
+        cont.setContactType(contact.getContactType());
+        cont.setValue(contact.getValue());
+        return contactService.update(cont);
     }
 
     @RequestMapping(value = "/contact/{id}", method = RequestMethod.DELETE)
     ResponseEntity<Contact> deleteContact(@PathVariable Long id){
         Contact contact = contactService.getById(id);
         if(contact != null){
+            Employee employee = contact.getEmployee();
+            employee.getContacts().remove(contact);
+            employeeService.update(employee);
             contactService.delete(contact);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);//204
         } else {

@@ -56,3 +56,17 @@
 .custom-file-input:hover::before {
   color: #80cbc4;
 }
+
+.cont_control_icon{
+  transition: all .3s ease;
+  float: right;
+  cursor: pointer;
+}
+
+.cont_control_icon:hover{
+  color: #ff9800;
+}
+.prgrs{
+    position: absolute;
+    z-index: 10;
+}

@@ -12,8 +12,8 @@ export class ContactService{
         return this.http.get('/api/contact/' + id);
     }
 
-    create(contact:Contact){
-        return this.http.post('/api/contact', contact);
+    create(contact:Contact, empId:number){
+        if(empId) return this.http.post('/api/contact/' + empId, contact);
     }
 
     update(contact:Contact){

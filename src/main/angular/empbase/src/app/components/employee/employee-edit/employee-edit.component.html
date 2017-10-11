@@ -30,9 +30,9 @@
     </div>
     <div class="col-md-5">
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="example-form">
-        <md-card-header>
-          <md-card-title  class="form_title">Редактирование</md-card-title>
-        </md-card-header>
+        <md-card-content>
+          <h5>Редактирование</h5>
+        </md-card-content>
         <md-card-content>
             <md-input-container class="full-width">
               <input mdInput placeholder="ФИО" formControlName="fio">
@@ -105,6 +105,19 @@
       </form> 
     </div>
     <div class="col-md-4">
+      <md-card-content>
+        <h5>Контакты</h5>
+        <p *ngIf="!employee?.contacts">Нет контактов</p>
+        <md-list>
+          <md-list-item *ngFor="let cont of employee?.contacts">
+            <md-icon class="note-icon" md-list-icon>perm_contact_calendar</md-icon>
+            <h5 md-line *ngIf="cont?.contactType?.name">{{cont?.contactType?.name}}</h5>
+            <p md-line *ngIf="cont?.value">{{cont?.value}}</p>
+            <md-icon class="cont_control_icon" md-list-icon (click)="editContact(cont)">edit</md-icon>
+            <md-icon class="cont_control_icon" md-list-icon (click)="deleteContact(cont)">delete</md-icon>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
       <md-card-content>
           <button md-button (click)="openContactDialog()">Добавить контакт</button>
       </md-card-content>

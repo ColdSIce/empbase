@@ -76,6 +76,7 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   loadData(){
+    this.inProgress = true;
     this.cs.getAllContactTypes().subscribe((data) => {
       this.cts = data.json() as ContactType[];
     },(error) => {
@@ -250,19 +251,96 @@ export class EmployeeEditComponent implements OnInit {
 
   openContactDialog(){
     const dialogRef = this.contactDialog.open(ContactDialog, {
-      height: '350px',
-      width: '500px',
+      height: '220px',
+      width: '400px',
       data: {
         cts: this.cts
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if(!result.ct || !result.value) {
+        this.ts.pop('error', 'Ошибка', "Введены некорректные данные");
+        return;
+      }
+      let ct = this.getContactTypeById(result.ct);
+      if(!ct){
+        this.ts.pop('error', 'Ошибка', "Не удалось определить тип контакта");
+        return;
+      }
+      let contact = new Contact(result.value, ct, this.employee);
+      this.cs.create(contact, this.employee.id).subscribe(
+        (data) => {
+          this.loadData();
+          this.ts.pop('success', 'Успех', "Контакт добавлен");
+        },
+        (error) => {
+          this.ts.pop('error', 'Ошибка', error);
+        }
+      );
     });
   }
 
+  editContact(cont:Contact){
+   const dialogRef = this.contactDialog.open(ContactDialog, {
+      height: '220px',
+      width: '400px',
+      data: {
+        cts: this.cts,
+        model:{
+          id: cont.id,
+          ct: cont.contactType.id,
+          value: cont.value
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.id || !result.ct || !result.value) {
+        this.ts.pop('error', 'Ошибка', "Введены некорректные данные");
+        return;
+      }
+      let ct = this.getContactTypeById(result.ct);
+      if(!ct){
+        this.ts.pop('error', 'Ошибка', "Не удалось определить тип контакта");
+        return;
+      }
+      let contact = new Contact(result.value, ct, this.employee);
+      contact.id = result.id;
+      this.cs.update(contact).subscribe(
+        (data) => {
+          this.loadData();
+          this.ts.pop('success', 'Успех', "Контакт добавлен");
+        },
+        (error) => {
+          this.ts.pop('error', 'Ошибка', error);
+        }
+      );
+    });
+  }
+
+  deleteContact(cont:Contact){
+    if(cont.id){
+      this.cs.delete(cont.id).subscribe(
+        (data) => {
+          this.loadData();
+          this.ts.pop('success', 'Успех', "Контакт удален");
+        },
+        (error) => {
+          this.ts.pop('error', 'Ошибка', error);
+        }
+      );
+    }
+  }
+
+  getContactTypeById(id:number){
+    let filtered = this.cts.filter(ct => ct.id == id);
+    return filtered.length == 1 ? filtered[0] : null;
+  }
+
 }
+
+ 
 
 
 @Component({
@@ -273,19 +351,26 @@ export class ContactDialog {
   constructor(
     public dialogRef: MdDialogRef<ContactDialog>,
     @Inject(MD_DIALOG_DATA) public data: any
-  ) { }
+  ) {
+    if(data.model){
+      this.model.id = data.model.id;
+      this.model.ct = data.model.ct;
+      this.model.value = data.model.value;
+    }
+  }
 
   model = {
+    id:null,
     ct:null,
     value:null
   }
 
   close(): void {
-    this.dialogRef.close(this.model);
+    this.dialogRef.close();
   }
 
   save(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(this.model);
   }
 
 }

@@ -1,12 +1,18 @@
-<md-card>
+<md-card style="height: 100%; box-shadow: none; padding: 0;">
     <md-card-content>
         <md-select placeholder="Тип контакта" style="width: 100%;" [(ngModel)]="model.ct">
-        <md-option *ngFor="let ct of data.cts" [value]="ct">
+        <md-option *ngFor="let ct of data.cts" [value]="ct.id">
             {{ct.name}}
         </md-option>
         </md-select>
     </md-card-content>
+    <md-card-content>
+        <md-input-container style="width: 100%;">
+            <input mdInput placeholder="Контакт" [(ngModel)]="model.value">
+        </md-input-container>
+    </md-card-content>
     <md-card-actions>
+        <button md-button (click)="save()" [disabled]="!model.ct || !model.value">Сохранить</button>
         <button md-button (click)="close()">Закрыть</button>
     </md-card-actions>
 </md-card>
