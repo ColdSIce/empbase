@@ -1,0 +1,20 @@
+<md-card style="height: 100%; box-shadow: none; padding: 0;">
+    <md-card-content>
+        <md-select placeholder="Группа" style="width: 100%;" [(ngModel)]="model.skillGroupId">
+        <md-option *ngFor="let sg of data.sgs" [value]="sg.id">
+            {{sg.name}}
+        </md-option>
+        </md-select>
+    </md-card-content>
+    <md-card-content *ngIf="model.skillGroupId">
+        <md-select placeholder="Скилл" style="width: 100%;" [(ngModel)]="model.skillId">
+        <md-option *ngFor="let skill of data.skills | skillByGroupId:model.skillGroupId" [value]="skill.id">
+            {{skill.name}}
+        </md-option>
+        </md-select>
+    </md-card-content>
+    <md-card-actions>
+        <button md-button (click)="save()" [disabled]="!model.skillGroupId || !model.skillId">Сохранить</button>
+        <button md-button (click)="close()">Закрыть</button>
+    </md-card-actions>
+</md-card>

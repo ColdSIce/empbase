@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -52,11 +54,29 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.PUT)
+    @Transactional
     Employee update(@RequestBody Employee employee){
+
+        Employee old = employeeService.getById(employee.getId());
+        old.getSkills().forEach(s -> {
+            if(!employee.getSkills().contains(s)){
+                if(s.getEmployees() != null){
+                    s.getEmployees().remove(old);
+                    skillService.update(s);
+                }
+            }
+        });
+
+        employee.getSkills().forEach(s -> {
+            if(s.getEmployees() == null) s.setEmployees(new HashSet<>());
+            if(!s.getEmployees().contains(employee))s.getEmployees().add(employee);
+            skillService.update(s);
+        });
         return employeeService.update(employee);
     }
 
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.DELETE)
+    @Transactional
     ResponseEntity<Employee> delete(@PathVariable Long id){
         Employee employee = employeeService.getById(id);
         if(employee != null){

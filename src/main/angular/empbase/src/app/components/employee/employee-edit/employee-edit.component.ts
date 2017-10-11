@@ -17,6 +17,9 @@ import { ImageService } from '../../../services/image.service';
 import { Contact } from '../../../models/contact';
 import { ContactType } from '../../../models/contactType';
 import { ContactService } from '../../../services/contact.service';
+import { Skill } from '../../../models/skill';
+import { SkillGroup } from '../../../models/skillGroup';
+import { SkillService } from '../../../services/skill.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
@@ -50,6 +53,8 @@ export class EmployeeEditComponent implements OnInit {
   positions:Position[];
   locations:Location[];
   cts:ContactType[];
+  sgs:SkillGroup[];
+  skills:Skill[];
   validFileTypes = ["image/gif", "image/jpeg", "image/png"];
   selectedCT:ContactType;
 
@@ -66,6 +71,7 @@ export class EmployeeEditComponent implements OnInit {
     private is:ImageService,
     private os:OrganizationService,
     private cs:ContactService,
+    private ss:SkillService,
     dateAdapter: DateAdapter<NativeDateAdapter>) {
       this.createForm();
       dateAdapter.setLocale('ru-RU');
@@ -79,6 +85,18 @@ export class EmployeeEditComponent implements OnInit {
     this.inProgress = true;
     this.cs.getAllContactTypes().subscribe((data) => {
       this.cts = data.json() as ContactType[];
+    },(error) => {
+      this.ts.pop('error', 'Ошибка', error);
+    });
+
+    this.ss.getAllSkillGroups().subscribe((data) => {
+      this.sgs = data.json() as SkillGroup[];
+    },(error) => {
+      this.ts.pop('error', 'Ошибка', error);
+    });
+
+    this.ss.getAllSkills().subscribe((data) => {
+      this.skills = data.json() as Skill[];
     },(error) => {
       this.ts.pop('error', 'Ошибка', error);
     });
@@ -338,6 +356,66 @@ export class EmployeeEditComponent implements OnInit {
     return filtered.length == 1 ? filtered[0] : null;
   }
 
+
+  openSkillDialog(){
+    const dialogRef = this.contactDialog.open(SkillDialog, {
+      height: '220px',
+      width: '400px',
+      data: {
+        skills:this.skills,
+        sgs:this.sgs,
+        model:{
+          skillId:null,
+          skillGroupId:null
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.skillId) {
+        this.ts.pop('error', 'Ошибка', "Введены некорректные данные");
+        return;
+      }
+      let skill = this.getSkillById(result.skillId);
+      this.employee.skills.push(skill);
+      this.es.update(this.employee).subscribe(
+        (data) => {
+          this.loadData();
+          this.ts.pop('success', 'Успех', "Скилл добавлен");
+        },
+        (error) => {
+          this.ts.pop('error', 'Ошибка', error);
+        }
+      );
+    });
+  }
+
+  deleteSkill(skill:Skill){
+    let index = this.employee.skills.indexOf(skill);
+    if(index > -1){
+      this.employee.skills.splice(index, 1);
+      this.es.update(this.employee).subscribe(
+        (data) => {
+          this.loadData();
+          this.ts.pop('success', 'Успех', "Скилл удален");
+        },
+        (error) => {
+          this.ts.pop('error', 'Ошибка', error);
+        }
+      );
+    }
+  }
+
+  getSkillGroupById(id:number){
+    let filtered = this.sgs.filter(sg => sg.id == id);
+    return filtered.length == 1 ? filtered[0] : null;
+  }
+
+  getSkillById(id:number){
+    let filtered = this.skills.filter(s => s.id == id);
+    return filtered.length == 1 ? filtered[0] : null;
+  }
+
 }
 
  
@@ -363,6 +441,37 @@ export class ContactDialog {
     id:null,
     ct:null,
     value:null
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  save(): void {
+    this.dialogRef.close(this.model);
+  }
+
+}
+
+
+@Component({
+  selector: 'contact-dialog',
+  templateUrl: 'skill-dialog.html',
+})
+export class SkillDialog {
+  constructor(
+    public dialogRef: MdDialogRef<SkillDialog>,
+    @Inject(MD_DIALOG_DATA) public data: any
+  ) {
+    if(data.model){
+      this.model.skillId = data.model.skillId;
+      this.model.skillGroupId = data.model.skillGroupId;
+    }
+  }
+
+  model = {
+    skillId:null,
+    skillGroupId:null
   }
 
   close(): void {

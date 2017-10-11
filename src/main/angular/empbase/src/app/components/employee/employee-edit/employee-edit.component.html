@@ -2,7 +2,7 @@
 <toaster-container></toaster-container>
 <md-card class="example-card">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" style="padding-right: 30px;">
       <div class="row">
         <div *ngIf="employee?.imageId" 
           [ngStyle]="{'background-image': 'url(/api/image/' + employee?.imageId + '/source)' }" 
@@ -30,7 +30,7 @@
     </div>
     <div class="col-md-5">
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="example-form">
-        <md-card-content>
+        <md-card-content style="margin-bottom: 32px;">
           <h5>Редактирование</h5>
         </md-card-content>
         <md-card-content>
@@ -105,21 +105,35 @@
       </form> 
     </div>
     <div class="col-md-4">
-      <md-card-content>
+      <md-card-content style="margin-bottom: 0;">
         <h5>Контакты</h5>
         <p *ngIf="!employee?.contacts">Нет контактов</p>
         <md-list>
           <md-list-item *ngFor="let cont of employee?.contacts">
-            <md-icon class="note-icon" md-list-icon>perm_contact_calendar</md-icon>
             <h5 md-line *ngIf="cont?.contactType?.name">{{cont?.contactType?.name}}</h5>
             <p md-line *ngIf="cont?.value">{{cont?.value}}</p>
-            <md-icon class="cont_control_icon" md-list-icon (click)="editContact(cont)">edit</md-icon>
-            <md-icon class="cont_control_icon" md-list-icon (click)="deleteContact(cont)">delete</md-icon>
+            <md-icon class="cont_control_icon" md-list-icon (click)="editContact(cont)" title="Редактировать">edit</md-icon>
+            <md-icon class="cont_control_icon" md-list-icon (click)="deleteContact(cont)" title="Удалить">delete</md-icon>
           </md-list-item>
         </md-list>
       </md-card-content>
       <md-card-content>
           <button md-button (click)="openContactDialog()">Добавить контакт</button>
+      </md-card-content>
+      <md-card-content style="margin-bottom: 0;">
+        <h5>Скилы</h5>
+        <p *ngIf="employee?.skills?.length == 0">Скилы не указаны</p>
+        <md-list>
+          <md-list-item *ngFor="let skill of employee?.skills">
+            <h5 md-line *ngIf="skill?.name">{{skill?.name}}</h5>
+            <p md-line *ngIf="skill?.skillGroup?.name">{{skill?.skillGroup?.name}}</p>
+            <md-icon class="cont_control_icon" md-list-icon (click)="editSkill(skill)" title="Редактировать">edit</md-icon>
+            <md-icon class="cont_control_icon" md-list-icon (click)="deleteSkill(skill)" title="Удалить">delete</md-icon>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+      <md-card-content>
+          <button md-button (click)="openSkillDialog()">Добавить скилл</button>
       </md-card-content>
     </div>
   </div>

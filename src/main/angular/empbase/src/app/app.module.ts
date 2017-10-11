@@ -43,7 +43,7 @@ import { SkillService } from './services/skill.service';
 import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 import { EmployeeComponent } from './components/employee/employee/employee.component';
-import { EmployeeEditComponent, ContactDialog } from './components/employee/employee-edit/employee-edit.component';
+import { EmployeeEditComponent, ContactDialog, SkillDialog } from './components/employee/employee-edit/employee-edit.component';
 import { EmployeeCreateComponent } from './components/employee/employee-create/employee-create.component';
 import { ContactTypeComponent } from './components/contact/contact-type/contact-type.component';
 import { ContactTypeListComponent } from './components/contact/contact-type-list/contact-type-list.component';
@@ -90,6 +90,7 @@ import { AlphabeticalPipe } from './pipes/alphabetical.pipe';
 import { EmployeeDetailsComponent } from './components/employee/employee-details/employee-details.component';
 import { MailingListComponent } from './components/mailing-list/mailing-list.component';
 import { InSelectedDivsPipe } from './pipes/in-selected-divs.pipe';
+import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { InSelectedDivsPipe } from './pipes/in-selected-divs.pipe';
     EmployeeComponent,
     EmployeeEditComponent,
     ContactDialog,
+    SkillDialog,
     EmployeeCreateComponent,
     ContactTypeComponent,
     ContactTypeListComponent,
@@ -144,7 +146,8 @@ import { InSelectedDivsPipe } from './pipes/in-selected-divs.pipe';
     AlphabeticalPipe,
     EmployeeDetailsComponent,
     MailingListComponent,
-    InSelectedDivsPipe
+    InSelectedDivsPipe,
+    SkillByGroupIdPipe
   ],
   imports: [
     BrowserModule,
@@ -213,7 +216,8 @@ import { InSelectedDivsPipe } from './pipes/in-selected-divs.pipe';
     MdIconModule
   ],
   entryComponents: [
-    ContactDialog
+    ContactDialog,
+    SkillDialog
   ],
   bootstrap: [AppComponent]
 })
