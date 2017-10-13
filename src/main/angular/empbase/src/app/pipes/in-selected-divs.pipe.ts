@@ -8,19 +8,11 @@ import 'rxjs/add/operator/map';
   name: 'inSelectedDivs'
 })
 export class InSelectedDivsPipe implements PipeTransform {
-
-  transform(employees: Array<Employee>, divisions: Array<Division>): any {
-    console.log(divisions);
-    if(!divisions) return [];
-    let result:Employee[] = [];
-    employees.forEach(e => {
-      if(e.divisionId){
-        divisions.forEach(d => {
-          if(d.id && d.id == e.divisionId) result.push(e);
-        });
-      }
-    });
-    return result;
+  
+  transform(employees: Array<Employee>, divs: Array<number>): Array<any> {
+    console.log(divs);
+      if(employees) return divs ? employees.filter(e => e.divisionId == null ? false : divs.includes(e.divisionId))
+               : [];
   }
 
 }

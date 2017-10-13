@@ -28,7 +28,7 @@
 
       </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-5" style="overflow-y: scroll;height: 800px;overflow-x: hidden;">
       <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="example-form">
         <md-card-content style="margin-bottom: 32px;">
           <h5>Редактирование</h5>
@@ -44,7 +44,7 @@
             </md-input-container>
         </md-card-content>
         <md-card-content>
-            <md-checkbox [checked]="employeeForm.active" formControlName="active">Активный</md-checkbox>
+            <md-checkbox [checked]="employeeForm?.value?.active" formControlName="active">Активный</md-checkbox>
         </md-card-content>
         <md-card-content>
           <md-select placeholder="Пол" formControlName="gender" name="gender" class="full-width">
@@ -104,7 +104,7 @@
         </md-card-actions>
       </form> 
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="overflow-y: scroll;height: 800px;">
       <md-card-content style="margin-bottom: 0;">
         <h5>Контакты</h5>
         <p *ngIf="!employee?.contacts">Нет контактов</p>

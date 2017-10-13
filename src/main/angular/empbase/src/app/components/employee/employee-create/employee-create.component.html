@@ -18,7 +18,7 @@
             </md-input-container>
         </md-card-content>
         <md-card-content>
-            <md-checkbox [checked]="employeeForm.active" formControlName="active">Активный</md-checkbox>
+            <md-checkbox [checked]="employeeForm?.value?.active" formControlName="active">Активный</md-checkbox>
         </md-card-content>
         <md-card-content>
           <md-select placeholder="Пол" formControlName="gender" name="gender" class="full-width">

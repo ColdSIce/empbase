@@ -11,22 +11,22 @@
     <h4>Рассылка</h4>
   </div>
 </div>
-<div class="row component_body" style="margin-right:0px;">
+<div class="row component_body">
   <div class="col-md-4 sg_col">
-    <md-selection-list #selectedDivisions>
-      <md-list-option *ngFor="let div of divisions" (selectChange)="selectDiv(div)">
-        {{div?.name}}
-      </md-list-option>
-    </md-selection-list>
+    <md-list>
+      <md-list-item *ngFor="let div of divisions">
+        <md-checkbox class="chbx" [checked]="selectedDivs.includes(div.id)" (change)="divCheckListener(div)" style="font-weight: 400;">{{div?.name}}</md-checkbox>
+      </md-list-item>
+    </md-list>
   </div>
   <div class="col-md-4 skill_col">
-    <md-selection-list #selectedEmployees>
-      <md-list-option *ngFor="let emp of employees">
-        {{emp?.fio}}
-      </md-list-option>
-    </md-selection-list>
+    <md-list>
+      <md-list-item *ngFor="let emp of filteredEmployees">
+        <md-checkbox class="chbx" [checked]="selectedEmployees.includes(emp.id)" (change)="emplChecked(emp)">{{emp?.fio}}</md-checkbox>
+      </md-list-item>
+    </md-list>
   </div>
   <div class="col-md-4 skill_col">
-    <button md-button>Рассылка</button>
+    <a *ngIf="selectedEmployees.length > 0" href="mailto:{{getEmails()}}" class="mailLink">Перейти к рассылке</a>
   </div>
 </div>
