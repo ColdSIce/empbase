@@ -3,6 +3,7 @@ package com.speechpro.empbase.empbase.controller.rest;
 import com.speechpro.empbase.empbase.model.entities.Employee;
 import com.speechpro.empbase.empbase.model.entities.Location;
 import com.speechpro.empbase.empbase.model.entities.Office;
+import com.speechpro.empbase.empbase.service.EmployeeService;
 import com.speechpro.empbase.empbase.service.LocationService;
 import com.speechpro.empbase.empbase.service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class LocationController {
 
     @Autowired
     private OfficeService officeService;
+    
+    @Autowired
+    private EmployeeService employeeService;
 
     @RequestMapping(value = "/location", method = RequestMethod.GET)
     List<Location> getLocation(){
@@ -46,7 +50,11 @@ public class LocationController {
     ResponseEntity<Location> deleteLocation(@PathVariable Long id){
         Location location = locationService.getById(id);
         if(location != null){
-            // TODO: 11.10.17 сначала нужно удалить линки, потом объект 
+            List<Employee> employees = employeeService.getByLocation(location);
+            employees.forEach(employee -> {
+                employee.setLocation(null);
+                employeeService.update(employee);
+            });
             locationService.delete(location);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);//204
         } else {

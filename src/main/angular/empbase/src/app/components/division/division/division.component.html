@@ -6,8 +6,8 @@
       <md-list-item class="org_row">
         <md-icon class="note-icon" md-list-icon>group</md-icon>
         <h4 md-line>Подразделение: {{division?.name}}<span *ngIf="division?.nameEng"> | Имя (eng): {{division?.nameEng}}</span></h4>
-        <p md-line>Руководитель: {{division?.head.fio}} </p>
-        <p md-line>Входит в подразделение: {{rootDivision?.name}} </p>
+        <p md-line *ngIf="division?.head?.fio">Руководитель: {{division?.head?.fio}} </p>
+        <p md-line *ngIf="rootDivision?.name">Входит в подразделение: {{rootDivision?.name}} </p>
       </md-list-item>
     </md-list>
   </md-card-content>

@@ -2,6 +2,7 @@ package com.speechpro.empbase.empbase.service;
 
 import com.speechpro.empbase.empbase.model.entities.Division;
 import com.speechpro.empbase.empbase.model.entities.Employee;
+import com.speechpro.empbase.empbase.model.entities.Location;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,4 +25,5 @@ public interface EmployeeService {
 
     List<Employee> getByDivision(Division division);
 
+    List<Employee> getByLocation(Location location);
 }

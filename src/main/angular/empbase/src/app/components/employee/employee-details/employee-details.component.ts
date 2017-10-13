@@ -6,6 +6,8 @@ import { Division } from '../../../models/division';
 import { DivisionService } from '../../../services/division.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-employee-details',
@@ -19,6 +21,7 @@ export class EmployeeDetailsComponent implements OnInit {
   inProgress = true;
   employee:Employee;
   division:Division;
+  previousUrl:string;
   patt:RegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
 
   constructor(
@@ -26,7 +29,8 @@ export class EmployeeDetailsComponent implements OnInit {
     private ds:DivisionService,
     private ts:ToasterService,
     private route:ActivatedRoute, 
-    private router:Router,) {
+    private router:Router,
+    private location: Location) {
       this.inProgress = true;
     }
 
@@ -65,13 +69,13 @@ export class EmployeeDetailsComponent implements OnInit {
 
   delete(id:number){
     this.es.delete(id).subscribe(
-      (resp) => this.router.navigate(['/employee']),
+      (resp) => this.location.back(),
       (error) => this.ts.pop('error', 'Ошибка', error)
     );
   }
 
   toEmployees(){
-    this.router.navigate(['/employee']);
+    this.location.back();
   }
 
 }
