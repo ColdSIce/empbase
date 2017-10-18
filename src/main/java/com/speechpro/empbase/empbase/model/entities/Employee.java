@@ -61,6 +61,9 @@ public class Employee {
     @ManyToMany(mappedBy = "employees")
     private Set<Skill> skills;
 
+    @ManyToMany(mappedBy = "employees")
+    private Set<Role> roles;
+
     @Column
     private Long imageId;
 
@@ -255,5 +258,13 @@ public class Employee {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

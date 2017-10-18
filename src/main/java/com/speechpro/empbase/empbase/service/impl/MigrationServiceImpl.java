@@ -4,6 +4,8 @@ import com.speechpro.empbase.empbase.model.entities.*;
 import com.speechpro.empbase.empbase.model.migration.*;
 import com.speechpro.empbase.empbase.repository.*;
 import com.speechpro.empbase.empbase.service.MigrationService;
+import com.speechpro.empbase.empbase.service.PermissionService;
+import com.speechpro.empbase.empbase.service.RoleService;
 import javafx.geometry.Pos;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +74,12 @@ public class MigrationServiceImpl implements MigrationService{
     @Autowired
     private PositionRepository positionRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private PermissionRepository permissionRepository;
+
     private static Logger logger = LoggerFactory.getLogger(MigrationServiceImpl.class);
 
     private static final Map<Long, Employee> empMapping = new HashMap<>();
@@ -87,6 +95,10 @@ public class MigrationServiceImpl implements MigrationService{
     private static final Map<Long, Skill> skillMapping = new HashMap<>();
     private static final Map<Long, Contact> contactMapping = new HashMap<>();
     private static final Map<Long, Set<Contact>> contactSetMapping = new HashMap<>();
+    private static final Map<Long, Role> roleMapping = new HashMap<>();
+    private static final Map<Long, Permission> permissionMapping = new HashMap<>();
+    private static final Map<Long, Set<Long>> permissionToRoleMapping = new HashMap<>();
+
 
     @Override
     public void synchData() {
@@ -98,6 +110,7 @@ public class MigrationServiceImpl implements MigrationService{
         synchSkillGroups();
         synchDivisionsAndEmployees();
         synchDeputies();
+        syncRolesAndPermissions();
     }
 
     private void synchOrganizations(){
@@ -229,7 +242,7 @@ public class MigrationServiceImpl implements MigrationService{
             employeeMigrations = Arrays.asList(eResponseEntity.getBody());
         }
 
-        employeeMigrations.forEach(em -> {
+        for(EmployeeMigration em : employeeMigrations){
             Employee e = new Employee();
             e.setUname(em.getUname());
             e.setFio(em.getFio());
@@ -246,20 +259,22 @@ public class MigrationServiceImpl implements MigrationService{
             if(em.getPosition() != null && em.getPosition().getId() != null)
                 e.setPosition(posMapping.get(em.getPosition().getId()));
             if(em.getImgBig() != null) {
-                ResponseEntity<byte[]> imgResponseEntity =
-                        migrationRestTemplate.getForEntity(imgUrl + em.getImgBig(), byte[].class);
-                if (imgResponseEntity.getStatusCode().equals(HttpStatus.OK)) {
-                    Image image = new Image();
-                    image.setBinImage(imgResponseEntity.getBody());
-                    Image saved = imageRepository.save(image);
-                    e.setImageId(saved.getId());
-                }
+                try {
+                    ResponseEntity<byte[]> imgResponseEntity =
+                            migrationRestTemplate.getForEntity(imgUrl + em.getImgBig(), byte[].class);
+                    if (imgResponseEntity.getStatusCode().equals(HttpStatus.OK)) {
+                        Image image = new Image();
+                        image.setBinImage(imgResponseEntity.getBody());
+                        Image saved = imageRepository.save(image);
+                        e.setImageId(saved.getId());
+                    }
+                }catch (Exception ex){logger.error(ex.getMessage());}
             }
             Long oldId = em.getId();
             Employee saved = employeeRepository.save(e);
             empMapping.put(oldId, saved);
             if(em.getDivision() != null) empDivMapping.put(oldId, em.getDivision().getId());
-        });
+        }
 
         employeeMigrations.forEach(em -> {
             em.get_contacts().forEach(cm -> {
@@ -342,6 +357,72 @@ public class MigrationServiceImpl implements MigrationService{
                 }catch (Exception e){logger.error(e.getMessage());}
             }
         });
+    }
+
+    private void syncRolesAndPermissions(){
+        String rolesUrl = environment.getProperty("empbase.api.roles");
+        String permissionsUrl = environment.getProperty("empbase.api.permissions");
+        permissionRepository.deleteAll();
+        employeeRepository.findAll().forEach(e -> {
+            e.setRoles(null);
+            employeeRepository.save(e);
+        });
+        roleRepository.deleteAll();
+        ResponseEntity<RoleMigration[]> rolesResponseEntity = migrationRestTemplate.getForEntity(rolesUrl, RoleMigration[].class);
+        ResponseEntity<PermissionMigration[]> permissionsResponseEntity = migrationRestTemplate.getForEntity(permissionsUrl, PermissionMigration[].class);
+
+        if(rolesResponseEntity.getStatusCode().equals(HttpStatus.OK)
+                && permissionsResponseEntity.getStatusCode().equals(HttpStatus.OK)){
+
+            Arrays.stream(rolesResponseEntity.getBody())
+                    .forEach(r -> {
+                        Long oldId = r.getId();
+                        Role role = new Role();
+                        role.setName(r.getName());
+                        Set<Employee> empls = new HashSet<>();
+                        r.getEmployees().forEach(e -> {
+                            if(empMapping.get(e.getId()) != null){
+                                empls.add(empMapping.get(e.getId()));
+                            }
+                        });
+                        role.setEmployees(empls);
+                        Role saved = roleRepository.save(role);
+                        saved.getEmployees().forEach(e -> {
+                            if(e.getRoles() == null) e.setRoles(new HashSet<>());
+                            e.getRoles().add(saved);
+                            employeeRepository.save(e);
+                        });
+                        roleMapping.put(oldId, saved);
+                        r.getPermissions().forEach(p -> {
+                            permissionToRoleMapping.putIfAbsent(p, new HashSet<>());
+                            permissionToRoleMapping.get(p).add(r.getId());
+                        });
+                    });
+
+            Arrays.stream(permissionsResponseEntity.getBody())
+                    .forEach(p -> {
+                        Permission permission = new Permission();
+                        permission.setName(p.getName());
+                        Set<Long> roleIds = permissionToRoleMapping.get(p.getId());
+                        if(roleIds != null) roleIds.forEach(id -> {
+                            Role r = roleMapping.get(id);
+                            if(permission.getRoles() == null) permission.setRoles(new HashSet<>());
+                            if(r != null) permission.getRoles().add(r);
+                        });
+                        if(p.getApplicationId() != null) permission.setApplication(applicationRepository.findOne(p.getApplicationId()));
+                        Permission saved = permissionRepository.save(permission);
+                        if(roleIds != null) roleIds.forEach(id -> {
+                            Role r = roleMapping.get(id);
+                            if(r != null) {
+                                if(r.getPermissions() == null) r.setPermissions(new HashSet<>());
+                                r.getPermissions().add(saved);
+                                roleRepository.save(r);
+                            }
+                        });
+                    });
+
+        }
+
     }
 
 
