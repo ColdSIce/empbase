@@ -1,0 +1,90 @@
+.component_body{
+    height: 90%;
+    padding: 0;
+}
+
+.role_col{
+    overflow-y: scroll; 
+    height: 100%;
+    padding-right: 0px;
+}
+
+.skill_col{
+    overflow-y: scroll; 
+    height: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.role_row,
+.skill_row{
+    transition: all .3s ease;
+}
+
+.skill_row:hover{
+    background: #E0F2F1;
+}
+
+.role_row:hover{
+    background: #E0F2F1;
+    cursor: pointer;
+}
+
+.role_row.selected{
+    background: #80cbc4;
+}
+
+.role_info{
+    display: none;
+    transition: all .3s ease;
+}
+
+.rem_empl{
+    transition: all .3s ease;
+}
+
+.role_row.selected .role_info,
+.rem_empl{
+    display: block;
+}
+
+.role_row.selected .role_info:hover,
+.rem_empl:hover{
+    color: #ff9800;
+    cursor: pointer;
+}
+
+.a_title h4{
+    margin-left: 20px;
+    padding-top: 10px;
+    margin-bottom: 0;
+}
+
+.add_role_btn{
+    float: right;
+    left: 27%;
+    bottom: 30px;
+    position: fixed;
+    z-index: 20;
+}
+
+.add_emp_btn{
+    float: right;
+    right: 45px;
+    bottom: 30px;
+    position: fixed;
+    z-index: 20;
+}
+
+.add_perm_btn{
+    float: right;
+    left: 60%;
+    bottom: 30px;
+    position: fixed;
+    z-index: 20;
+}
+
+.emp_list_progress_bar{
+    position: fixed;
+    z-index: 10;
+}

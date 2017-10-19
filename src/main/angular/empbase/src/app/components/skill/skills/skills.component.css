@@ -64,3 +64,8 @@
     position: fixed;
     z-index: 20;
 }
+
+.emp_list_progress_bar{
+    position: fixed;
+    z-index: 10;
+}

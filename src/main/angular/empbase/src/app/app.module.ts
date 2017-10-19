@@ -39,6 +39,8 @@ import { OfficeService } from './services/office.service';
 import { OrganizationService } from './services/organization.service';
 import { PositionService } from './services/position.service';
 import { SkillService } from './services/skill.service';
+import { RoleService } from './services/role.service';
+import { PermissionService } from './services/permission.service';
 
 import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
@@ -191,7 +193,9 @@ import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
     OfficeService,
     OrganizationService,
     PositionService,
-    SkillService
+    SkillService,
+    RoleService,
+    PermissionService
   ],
   exports: [
     MdButtonModule, 

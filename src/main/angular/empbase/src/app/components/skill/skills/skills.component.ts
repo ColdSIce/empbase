@@ -19,7 +19,7 @@ export class SkillsComponent implements OnInit {
   skills:Skill[];
   selectedSG:SkillGroup;
   mode = "Indeterminate";
-  inProgress = false;
+  inProgress = true;
 
   constructor(
     private router: Router,

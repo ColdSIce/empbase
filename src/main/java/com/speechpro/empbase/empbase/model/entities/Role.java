@@ -18,7 +18,6 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Set<Permission> permissions;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "employeeRoles",
             joinColumns = @JoinColumn(name = "roleId", referencedColumnName = "id"),
@@ -51,7 +50,6 @@ public class Role {
         this.name = name;
     }
 
-    @JsonIgnore
     public Set<Employee> getEmployees() {
         return employees;
     }

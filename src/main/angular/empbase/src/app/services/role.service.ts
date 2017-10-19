@@ -4,7 +4,7 @@ import { Employee } from '../models/employee';
 import { Http }    from '@angular/http';
 
 @Injectable()
-export class PermissionService{
+export class RoleService{
 
     constructor(private http: Http){}
 

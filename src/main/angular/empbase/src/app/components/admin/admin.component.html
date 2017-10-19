@@ -1,3 +1,67 @@
-<p>
-  admin works!
-</p>
+<md-progress-bar class="progress" *ngIf="inProgress" mode="indeterminate" color="accent" class="emp_list_progress_bar"></md-progress-bar>
+<toaster-container></toaster-container>
+<div class="row component_head" style="margin-right:0px;">
+  <div class="col-md-4 a_title">
+    <h4>Роли</h4>
+  </div>
+  <div class="col-md-4 a_title">
+    <h4>Права</h4>
+  </div>
+  <div class="col-md-4 a_title">
+    <h4>Сотрудники</h4>
+  </div>
+</div>
+<div class="row component_body" style="margin-right:0px;">
+  <div class="col-md-4 role_col">
+    <div class="add_role_btn">
+      <button md-fab color="accent" (click)="createRole()">
+        <md-icon aria-label="Новая роль">add</md-icon>
+      </button>
+    </div>
+    <md-list>
+      <md-list-item [ngClass]="{'selected':role.selected}" class="role_row" (click)="selectRole(role)" *ngFor="let role of roles">
+        <md-icon class="note-icon" md-list-icon>recent_actors</md-icon>
+        <h4 md-line *ngIf="role?.name">{{role?.name}}</h4>
+        <md-icon class="note-icon role_info" title="Управление" (click)="goToRole(role?.id)" md-list-icon>
+          settings
+        </md-icon>
+      </md-list-item>
+    </md-list>
+  </div>
+  <div class="col-md-4 skill_col">
+    <div class="add_perm_btn">
+      <button md-fab color="accent" (click)="createPermission(selectedRole?.id)">
+        <md-icon aria-label="Новый пермишн">add</md-icon>
+      </button>
+    </div>
+    <md-list>
+      <md-list-item class="skill_row" *ngFor="let permission of selectedRole?.permissions">
+        <md-icon class="note-icon" md-list-icon>visibility</md-icon>
+        <md-icon class="note-icon rem_empl" title="Настроить" (click)="goToPermission(permission)" md-list-icon>
+          settings
+        </md-icon>
+        <md-icon class="note-icon rem_empl" title="Удалить" (click)="deletePermission(permission)" md-list-icon>
+          close
+        </md-icon>
+        <h4 md-line *ngIf="permission?.name">{{permission?.name}}</h4>
+        <p md-line *ngIf="permission?.application?.name">Приложение: {{permission?.application?.name}}</p>
+      </md-list-item>
+    </md-list>
+  </div>
+  <div class="col-md-4 skill_col">
+    <div class="add_emp_btn">
+      <button md-fab color="accent" (click)="addEmployee(selectedRole?.id)">
+        <md-icon aria-label="Добавить сотрудника">add</md-icon>
+      </button>
+    </div>
+    <md-list>
+      <md-list-item class="skill_row" *ngFor="let employee of selectedRole?.employees">
+        <md-icon class="note-icon" md-list-icon>face</md-icon>
+        <md-icon class="note-icon rem_empl" title="Удалить" (click)="deleteEmployee(employee)" md-list-icon>
+          close
+        </md-icon>
+        <h4 md-line *ngIf="employee?.fio">{{employee?.fio}}</h4>
+      </md-list-item>
+    </md-list>
+  </div>
+</div>
