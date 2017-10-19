@@ -1,5 +1,6 @@
 package com.speechpro.empbase.empbase.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -260,6 +261,7 @@ public class Employee {
         this.gender = gender;
     }
 
+    @JsonIgnore
     public Set<Role> getRoles() {
         return roles;
     }

@@ -42,4 +42,9 @@ public class PermissionServiceImpl implements PermissionService{
         });
         permissionRepository.delete(permission);
     }
+
+    @Override
+    public List<Permission> getAll() {
+        return permissionRepository.findAll();
+    }
 }
