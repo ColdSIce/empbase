@@ -28,7 +28,7 @@ public class RoleController {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping(value = "/role", method = RequestMethod.GET)
+    @RequestMapping(value = "/role/all", method = RequestMethod.GET)
     List<Role> getAllRoles(){
         return roleService.getAll();
     }
@@ -68,7 +68,7 @@ public class RoleController {
         }
     }
 
-    @RequestMapping(value = "/role/{id}/employees", method = RequestMethod.GET)
+    @RequestMapping(value = "/role/{id}/employee", method = RequestMethod.GET)
     Set<Employee> getEmployeesByRole(@PathVariable Long id) throws NotFoundException {
         Role role = roleService.getById(id);
         if(role != null){

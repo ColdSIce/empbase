@@ -21,7 +21,7 @@ public class PermissionController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping(value = "/permission", method = RequestMethod.GET)
+    @RequestMapping(value = "/permission/all", method = RequestMethod.GET)
     List<Permission> getAllPermissions(){
         return permissionService.getAll();
     }
