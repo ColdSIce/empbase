@@ -44,4 +44,9 @@ public class ContactServiceImpl implements ContactService{
     public void delete(Contact contact) {
         contactRepository.delete(contact);
     }
+
+    @Override
+    public List<Contact> getByContactType(ContactType contactType) {
+        return contactRepository.findByContactType(contactType);
+    }
 }

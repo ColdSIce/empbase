@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -127,9 +128,15 @@ public class DivisionController {
     }
 
     @RequestMapping(value = "/division/{id}", method = RequestMethod.DELETE)
+    @Transactional
     ResponseEntity<Division> delete(@PathVariable Long id){
         Division division = divisionService.getById(id);
         if(division != null){
+            List<Employee> employees = divisionService.getEmployeesByDivision(division);
+            employees.forEach(e -> {
+                e.setDivisionId(null);
+                employeeService.update(e);
+            });
             divisionService.delete(division);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);//204
         } else {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -45,6 +46,19 @@ public class RoleController {
 
     @RequestMapping(value = "/role", method = RequestMethod.PUT)
     Role updateRole(@RequestBody Role role){
+        Role saved = roleService.getById(role.getId());
+        saved.getPermissions().forEach(p -> {
+            if(role.getPermissions().stream().noneMatch(perm -> Objects.equals(perm.getId(), p.getId()))) {
+                p.getRoles().remove(saved);
+                permissionService.update(p);
+            }
+        });
+        saved.getEmployees().forEach(e -> {
+            if(role.getEmployees().stream().noneMatch(empl -> Objects.equals(empl.getId(), e.getId()))) {
+                e.getRoles().remove(saved);
+                employeeService.update(e);
+            }
+        });
         return roleService.update(role);
     }
 

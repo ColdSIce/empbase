@@ -88,3 +88,7 @@
     position: fixed;
     z-index: 10;
 }
+
+.full-width{
+    width: 100%;
+}

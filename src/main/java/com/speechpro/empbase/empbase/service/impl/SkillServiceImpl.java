@@ -1,6 +1,7 @@
 package com.speechpro.empbase.empbase.service.impl;
 
 import com.speechpro.empbase.empbase.model.entities.Skill;
+import com.speechpro.empbase.empbase.model.entities.SkillGroup;
 import com.speechpro.empbase.empbase.repository.SkillRepository;
 import com.speechpro.empbase.empbase.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,10 @@ public class SkillServiceImpl implements SkillService{
     @Override
     public void delete(Skill skill) {
         skillRepository.delete(skill);
+    }
+
+    @Override
+    public List<Skill> getBySkillGroup(SkillGroup skillGroup) {
+        return skillRepository.findBySkillGroup(skillGroup);
     }
 }

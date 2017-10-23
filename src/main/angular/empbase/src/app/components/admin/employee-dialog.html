@@ -1,0 +1,14 @@
+<md-card style="height: 100%; box-shadow: none; padding: 0;">
+    <h5>Добавление сотрудника в роль</h5>
+    <md-card-content>
+        <md-select placeholder="Сотрудник" style="width: 100%;" [(ngModel)]="model.employee">
+        <md-option *ngFor="let emp of data.employees" [value]="emp">
+            {{emp.fio}}
+        </md-option>
+        </md-select>
+    </md-card-content>
+    <md-card-actions style="padding-top: 0px;">
+        <button md-button (click)="save()" [disabled]="!model.employee">Сохранить</button>
+        <button md-button (click)="close()">Закрыть</button>
+    </md-card-actions>
+</md-card>

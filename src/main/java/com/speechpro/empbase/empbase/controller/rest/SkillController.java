@@ -1,6 +1,7 @@
 package com.speechpro.empbase.empbase.controller.rest;
 
 import com.speechpro.empbase.empbase.model.entities.Skill;
+import com.speechpro.empbase.empbase.model.entities.SkillGroup;
 import com.speechpro.empbase.empbase.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,9 +39,9 @@ public class SkillController {
 
     @RequestMapping(value = "/skill/{id}", method = RequestMethod.DELETE)
     ResponseEntity<Skill> deleteSkill(@PathVariable Long id){
-        Skill position = skillService.getById(id);
-        if(position != null){
-            skillService.delete(position);
+        Skill skill = skillService.getById(id);
+        if(skill != null){
+            skillService.delete(skill);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);//204
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

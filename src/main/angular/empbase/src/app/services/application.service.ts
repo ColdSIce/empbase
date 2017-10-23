@@ -11,6 +11,10 @@ export class ApplicationService{
         return this.http.get('/api/application/' + id);
     }
 
+    getAll(){
+        return this.http.get('/api/application');
+    }
+
     create(application:Application){
         return this.http.post('/api/application', application);
     }

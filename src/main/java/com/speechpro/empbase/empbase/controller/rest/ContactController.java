@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -54,6 +55,7 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/contact/{id}", method = RequestMethod.DELETE)
+    @Transactional
     ResponseEntity<Contact> deleteContact(@PathVariable Long id){
         Contact contact = contactService.getById(id);
         if(contact != null){
@@ -98,9 +100,14 @@ public class ContactController {
     }
 
     @RequestMapping(value = "/contact_type/{id}", method = RequestMethod.DELETE)
+    @Transactional
     ResponseEntity<ContactType> deleteContactType(@PathVariable Long id){
         ContactType contactType = contactTypeService.getById(id);
         if(contactType != null){
+            contactService.getByContactType(contactType).forEach(c -> {
+                c.setContactType(null);
+                contactService.update(c);
+            });
             contactTypeService.delete(contactType);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);//204
         } else {

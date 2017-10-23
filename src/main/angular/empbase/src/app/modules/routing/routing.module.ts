@@ -42,6 +42,8 @@ import { SkillTypeCreateComponent } from '../../components/skill/skill-type-crea
 import { SkillTypeEditComponent } from '../../components/skill/skill-type-edit/skill-type-edit.component';
 import { SkillsComponent } from '../../components/skill/skills/skills.component';
 import { AdminComponent } from '../../components/admin/admin.component';
+import { RoleComponent } from '../../components/role/role.component';
+import { PermissionComponent } from '../../components/permission/permission.component';
 import { MailingListComponent } from '../../components/mailing-list/mailing-list.component';
 
 const routes: Routes = [
@@ -87,7 +89,9 @@ const routes: Routes = [
   { path: 'skill/createInGroup/:skillId', component: SkillCreateComponent },
   { path: 'skillType/create', component: SkillTypeCreateComponent },
   { path: 'mailTo', component: MailingListComponent },
-  { path: 'admin', component: AdminComponent }
+  { path: 'admin', component: AdminComponent },
+  { path: 'role/:key', component: RoleComponent },
+  { path: 'permission/:key', component: PermissionComponent }
 ];
 
 @NgModule({

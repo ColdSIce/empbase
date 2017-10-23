@@ -1,8 +1,6 @@
 package com.speechpro.empbase.empbase.service.impl;
 
-import com.speechpro.empbase.empbase.model.entities.Division;
-import com.speechpro.empbase.empbase.model.entities.Employee;
-import com.speechpro.empbase.empbase.model.entities.Location;
+import com.speechpro.empbase.empbase.model.entities.*;
 import com.speechpro.empbase.empbase.repository.EmployeeRepository;
 import com.speechpro.empbase.empbase.service.DivisionService;
 import com.speechpro.empbase.empbase.service.EmployeeService;
@@ -73,5 +71,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getByLocation(Location location) {
         return employeeRepository.findByLocation(location);
+    }
+
+    @Override
+    public List<Employee> getByPosition(Position position) {
+        return employeeRepository.findByPosition(position);
+    }
+
+    @Override
+    public List<Employee> getByOrganization(Organization organization) {
+        return employeeRepository.findByOrganization(organization);
     }
 }

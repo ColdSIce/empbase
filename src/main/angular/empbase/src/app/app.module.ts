@@ -81,7 +81,7 @@ import { SkillTypeComponent } from './components/skill/skill-type/skill-type.com
 import { SkillTypeCreateComponent } from './components/skill/skill-type-create/skill-type-create.component';
 import { SkillTypeEditComponent } from './components/skill/skill-type-edit/skill-type-edit.component';
 import { SkillsComponent } from './components/skill/skills/skills.component';
-import { AdminComponent } from './components/admin/admin.component';
+import { AdminComponent, RoleDialog, PermissionDialog, EmployeeDialog, AddPermissionDialog, } from './components/admin/admin.component';
 import { PositionByPropPipe } from './pipes/position-by-prop.pipe';
 import { RoomByOfficePipe } from './pipes/room-by-office.pipe';
 import { SkillByGroupPipe } from './pipes/skill-by-group.pipe';
@@ -93,6 +93,8 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
 import { MailingListComponent } from './components/mailing-list/mailing-list.component';
 import { InSelectedDivsPipe } from './pipes/in-selected-divs.pipe';
 import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
+import { RoleComponent } from './components/role/role.component';
+import { PermissionComponent } from './components/permission/permission.component';
 
 
 @NgModule({
@@ -103,7 +105,11 @@ import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
     EmployeeEditComponent,
     ContactDialog,
     SkillDialog,
-    DeputyDialog,
+    DeputyDialog, 
+    RoleDialog, 
+    PermissionDialog, 
+    EmployeeDialog,
+    AddPermissionDialog,
     EmployeeCreateComponent,
     ContactTypeComponent,
     ContactTypeListComponent,
@@ -150,7 +156,9 @@ import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
     EmployeeDetailsComponent,
     MailingListComponent,
     InSelectedDivsPipe,
-    SkillByGroupIdPipe
+    SkillByGroupIdPipe,
+    RoleComponent,
+    PermissionComponent
   ],
   imports: [
     BrowserModule,
@@ -223,7 +231,11 @@ import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
   entryComponents: [
     ContactDialog,
     DeputyDialog,
-    SkillDialog
+    SkillDialog,
+    RoleDialog, 
+    PermissionDialog, 
+    AddPermissionDialog, 
+    EmployeeDialog,
   ],
   bootstrap: [AppComponent]
 })

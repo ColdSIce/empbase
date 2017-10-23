@@ -1,0 +1,12 @@
+<md-card style="height: 100%; box-shadow: none; padding: 0;">
+    <h5>Новая роль</h5>
+    <md-card-content>
+        <md-input-container style="width: 100%;">
+          <input mdInput placeholder="Имя роли" [(ngModel)]="model.name">
+        </md-input-container>
+    </md-card-content>
+    <md-card-actions style="padding-top: 0px;">
+        <button md-button (click)="save()" [disabled]="!model.name">Сохранить</button>
+        <button md-button (click)="close()">Закрыть</button>
+    </md-card-actions>
+</md-card>

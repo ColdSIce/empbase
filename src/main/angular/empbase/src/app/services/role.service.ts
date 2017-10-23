@@ -25,7 +25,7 @@ export class RoleService{
     }
 
     delete(id:number){
-        if(id) return this.http.delete('/api/role/' + id);
+        return this.http.delete('/api/role/' + id);
     }
 
     getEmployeesByRole(id:number){

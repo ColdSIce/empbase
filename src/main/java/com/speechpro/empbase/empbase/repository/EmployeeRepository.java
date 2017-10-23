@@ -1,8 +1,6 @@
 package com.speechpro.empbase.empbase.repository;
 
-import com.speechpro.empbase.empbase.model.entities.Division;
-import com.speechpro.empbase.empbase.model.entities.Employee;
-import com.speechpro.empbase.empbase.model.entities.Location;
+import com.speechpro.empbase.empbase.model.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +13,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findByDivisionId(Long id);
     List<Employee> findByActive(boolean active);
     List<Employee> findByLocation(Location location);
+    List<Employee> findByPosition(Position position);
+    List<Employee> findByOrganization(Organization organization);
 }

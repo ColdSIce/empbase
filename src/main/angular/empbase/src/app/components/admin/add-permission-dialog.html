@@ -1,0 +1,14 @@
+<md-card style="height: 100%; box-shadow: none; padding: 0;">
+    <h5>Добавить пермишн</h5>
+    <md-card-content>
+        <md-select placeholder="Пермишн" style="width: 100%;" [(ngModel)]="model.permission">
+        <md-option *ngFor="let perm of data.permissions" [value]="perm">
+            {{perm.name}}
+        </md-option>
+        </md-select>
+    </md-card-content>
+    <md-card-actions style="padding-top: 0px;">
+        <button md-button (click)="save()" [disabled]="!model.permission">Сохранить</button>
+        <button md-button (click)="close()">Закрыть</button>
+    </md-card-actions>
+</md-card>

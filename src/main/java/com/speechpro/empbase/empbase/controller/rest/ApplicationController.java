@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class ApplicationController {
@@ -17,6 +19,11 @@ public class ApplicationController {
     @RequestMapping(value = "/application/{id}", method = RequestMethod.GET)
     Application get(@PathVariable Long id){
         return applicationService.getById(id);
+    }
+
+    @RequestMapping(value = "/application", method = RequestMethod.GET)
+    List<Application> getAll(){
+        return applicationService.getAll();
     }
 
     @RequestMapping(value = "/application", method = RequestMethod.POST)

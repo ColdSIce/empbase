@@ -16,7 +16,7 @@ import { ToasterService } from 'angular2-toaster';
 export class OrganizationEditComponent implements OnInit {
 
   mode = "Indeterminate";
-  inProgress = false;
+  inProgress = true;
   orgForm:FormGroup;
   organization:Organization;
 

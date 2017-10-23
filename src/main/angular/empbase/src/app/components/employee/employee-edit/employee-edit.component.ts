@@ -157,7 +157,7 @@ export class EmployeeEditComponent implements OnInit {
                             onesId: this.employee.onesId,
                             dob: new Date(this.employee.birthDate),
                             organization:selectedOrg,
-                            div:selectedDiv.id,
+                            div:selectedDiv == null ? null : selectedDiv.id,
                             position:selectedPos,
                             location:selectedLoca
                           });

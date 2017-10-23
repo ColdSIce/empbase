@@ -1,0 +1,19 @@
+<md-progress-bar class="progress" *ngIf="inProgress" color="accent"></md-progress-bar>
+<toaster-container></toaster-container>
+<md-card class="example-card">
+  <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" class="example-form">
+    <md-card-header>
+      <md-card-title  class="form_title">Роль</md-card-title>
+    </md-card-header>
+    <md-card-content>
+        <md-input-container class="full-width">
+          <input mdInput placeholder="Имя роли" formControlName="name">
+        </md-input-container>
+    </md-card-content>
+    <md-card-actions>
+      <button [disabled]="roleForm.pristine" type="submit" md-button>Сохранить</button>
+      <button type="button" (click)="delete()" md-button>Удалить</button>
+      <button type="button" (click)="cancel()" md-button>Отмена</button>
+    </md-card-actions>
+  </form> 
+</md-card>

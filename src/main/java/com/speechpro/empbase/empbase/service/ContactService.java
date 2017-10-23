@@ -15,4 +15,5 @@ public interface ContactService {
     Contact create(Contact contact);
     Contact update(Contact contact);
     void delete(Contact contact);
+    List<Contact> getByContactType(ContactType contactType);
 }

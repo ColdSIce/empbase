@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -47,11 +48,11 @@ public class LocationController {
     }
 
     @RequestMapping(value = "/location/{id}", method = RequestMethod.DELETE)
+    @Transactional
     ResponseEntity<Location> deleteLocation(@PathVariable Long id){
         Location location = locationService.getById(id);
         if(location != null){
-            List<Employee> employees = employeeService.getByLocation(location);
-            employees.forEach(employee -> {
+            employeeService.getByLocation(location).forEach(employee -> {
                 employee.setLocation(null);
                 employeeService.update(employee);
             });
