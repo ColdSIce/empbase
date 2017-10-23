@@ -45,7 +45,7 @@ import { PermissionService } from './services/permission.service';
 import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './components/employee/employee-list/employee-list.component';
 import { EmployeeComponent } from './components/employee/employee/employee.component';
-import { EmployeeEditComponent, ContactDialog, SkillDialog } from './components/employee/employee-edit/employee-edit.component';
+import { EmployeeEditComponent, ContactDialog, SkillDialog, DeputyDialog } from './components/employee/employee-edit/employee-edit.component';
 import { EmployeeCreateComponent } from './components/employee/employee-create/employee-create.component';
 import { ContactTypeComponent } from './components/contact/contact-type/contact-type.component';
 import { ContactTypeListComponent } from './components/contact/contact-type-list/contact-type-list.component';
@@ -103,6 +103,7 @@ import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
     EmployeeEditComponent,
     ContactDialog,
     SkillDialog,
+    DeputyDialog,
     EmployeeCreateComponent,
     ContactTypeComponent,
     ContactTypeListComponent,
@@ -221,6 +222,7 @@ import { SkillByGroupIdPipe } from './pipes/skill-by-group-id.pipe';
   ],
   entryComponents: [
     ContactDialog,
+    DeputyDialog,
     SkillDialog
   ],
   bootstrap: [AppComponent]

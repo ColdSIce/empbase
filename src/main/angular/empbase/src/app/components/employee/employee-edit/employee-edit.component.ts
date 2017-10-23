@@ -20,6 +20,8 @@ import { ContactService } from '../../../services/contact.service';
 import { Skill } from '../../../models/skill';
 import { SkillGroup } from '../../../models/skillGroup';
 import { SkillService } from '../../../services/skill.service';
+import { Deputy } from '../../../models/deputy';
+import { DeputyService } from '../../../services/deputy.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ToasterService } from 'angular2-toaster';
@@ -48,13 +50,15 @@ export class EmployeeEditComponent implements OnInit {
   inProgress = true;
   employeeForm:FormGroup;
   employee:Employee;
-  divisions:Division[];
-  organizations:Organization[];
-  positions:Position[];
-  locations:Location[];
-  cts:ContactType[];
-  sgs:SkillGroup[];
-  skills:Skill[];
+  employees:Employee[] = [];
+  divisions:Division[] = [];
+  organizations:Organization[] = [];
+  positions:Position[] = [];
+  locations:Location[] = [];
+  cts:ContactType[] = [];
+  sgs:SkillGroup[] = [];
+  skills:Skill[] = [];
+  deputies:Deputy[] = [];
   validFileTypes = ["image/gif", "image/jpeg", "image/png"];
   selectedCT:ContactType;
 
@@ -65,8 +69,10 @@ export class EmployeeEditComponent implements OnInit {
     private route:ActivatedRoute,
     private ds:DivisionService,
     public contactDialog: MdDialog,
+    public deputyDialog: MdDialog,
     private es:EmployeeService,
     private ls:LocationService,
+    private deputyServ:DeputyService,
     private ps:PositionService,
     private is:ImageService,
     private os:OrganizationService,
@@ -142,7 +148,6 @@ export class EmployeeEditComponent implements OnInit {
                             if(l.id == this.employee.location.id) selectedLoca = l;
                           });
 
-                          console.log(new Date(this.employee.birthDate));
                           this.employeeForm.setValue({
                             fio: this.employee.fio,
                             fioEng: this.employee.fioEng,
@@ -156,6 +161,25 @@ export class EmployeeEditComponent implements OnInit {
                             position:selectedPos,
                             location:selectedLoca
                           });
+
+                          this.deputyServ.getDeputyByHead(this.employee.id).subscribe(resp => {
+                            this.deputies = resp.json() as Deputy[];
+                            this.inProgress = false;
+                          },
+                          (error) => {
+                            this.ts.pop('error', 'Ошибка', error);
+                            this.inProgress = false;
+                          });
+
+                          this.es.getActive().subscribe(resp => {
+                            this.employees = resp.json() as Employee[];
+                            this.inProgress = false;
+                          },
+                          (error) => {
+                            this.ts.pop('error', 'Ошибка', error);
+                            this.inProgress = false;
+                          });
+
                           this.inProgress = false;
                         },
                           (error) => {
@@ -416,6 +440,48 @@ export class EmployeeEditComponent implements OnInit {
     return filtered.length == 1 ? filtered[0] : null;
   }
 
+
+  openDeputyDialog(){
+    const dialogRef = this.deputyDialog.open(DeputyDialog, {
+      height: '160px',
+      width: '400px',
+      data: {
+        employees: this.employees
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result.employee) {
+        this.ts.pop('error', 'Ошибка', "Введены некорректные данные");
+        return;
+      }
+      let deputy = new Deputy(this.employee, result.employee);
+      this.deputyServ.create(deputy).subscribe(
+        (data) => {
+          this.loadData();
+          this.ts.pop('success', 'Успех', "Заместитель добавлен");
+        },
+        (error) => {
+          this.ts.pop('error', 'Ошибка', error);
+        }
+      );
+    });
+  }
+
+  deleteDeputy(deputy:Deputy){
+    if(deputy.id){
+      this.deputyServ.delete(deputy.id).subscribe(
+        (data) => {
+          this.loadData();
+          this.ts.pop('success', 'Успех', "Заместитель удален");
+        },
+        (error) => {
+          this.ts.pop('error', 'Ошибка', error);
+        }
+      );
+    }
+  }
+
 }
 
  
@@ -472,6 +538,32 @@ export class SkillDialog {
   model = {
     skillId:null,
     skillGroupId:null
+  }
+
+  close(): void {
+    this.dialogRef.close();
+  }
+
+  save(): void {
+    this.dialogRef.close(this.model);
+  }
+
+}
+
+
+
+@Component({
+  selector: 'deputy-dialog',
+  templateUrl: 'deputy-dialog.html',
+})
+export class DeputyDialog {
+  constructor(
+    public dialogRef: MdDialogRef<DeputyDialog>,
+    @Inject(MD_DIALOG_DATA) public data: any
+  ) {}
+
+  model = {
+    employee:null
   }
 
   close(): void {

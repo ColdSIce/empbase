@@ -20,7 +20,16 @@
             Активный
             <md-icon color="accent" title="Активный">check_circle</md-icon>
           </h5>
-          
+
+          <md-list *ngIf="deputies.length">
+            <h3 md-subheader>Заместители</h3>
+            <md-list-item  *ngFor="let deputy of deputies">
+              <md-icon md-list-icon>person</md-icon>
+              <h4 md-line>{{deputy?.deputy?.fio}}</h4>
+            </md-list-item>
+            <md-divider></md-divider>
+          </md-list>
+
           <md-list>
             <h3 *ngIf="employee?.organization" md-subheader>Организация</h3>
             <md-list-item *ngIf="employee?.organization">

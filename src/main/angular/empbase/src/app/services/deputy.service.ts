@@ -11,6 +11,10 @@ export class DeputyService{
         return this.http.get('/api/deputy/' + id);
     }
 
+    getDeputyByHead(id:number){
+        return this.http.get('/api/employee/' + id + '/replaced_by');
+    }
+
     create(deputy:Deputy){
         return this.http.post('/api/deputy', deputy);
     }

@@ -106,6 +106,20 @@
     </div>
     <div class="col-md-4" style="overflow-y: scroll;height: 800px;">
       <md-card-content style="margin-bottom: 0;">
+        <h5>Заместители</h5>
+        <p *ngIf="deputies.length">Нет Заместителей</p>
+        <md-list>
+          <md-list-item *ngFor="let deputy of deputies">
+            <h5 md-line *ngIf="deputy?.deputy?.fio">{{deputy?.deputy?.fio}}</h5>
+            <md-icon class="cont_control_icon" md-list-icon (click)="deleteDeputy(deputy)" title="Удалить">delete</md-icon>
+          </md-list-item>
+        </md-list>
+      </md-card-content>
+      <md-card-content>
+          <button md-button (click)="openDeputyDialog()">Добавить заместителя</button>
+      </md-card-content>
+
+      <md-card-content style="margin-bottom: 0;">
         <h5>Контакты</h5>
         <p *ngIf="!employee?.contacts">Нет контактов</p>
         <md-list>
